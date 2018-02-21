@@ -1,0 +1,21 @@
+<layout>
+
+    <data>
+
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="travel.nanjing.com.travel.business.travelRecord.TravelRecordFragment">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/friendRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+</layout>

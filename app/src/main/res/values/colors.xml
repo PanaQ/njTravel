@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF8C5EFF</color>
+    <color name="colorSplitColor">#f2f2f2</color>
+    <color name="colorPrimaryDark">#FF12007F</color>
+    <color name="colorPrimaryLight">#4D8C5EFF</color>
+    <color name="colorWhite">#FFFFFFFF</color>
+    <color name="colorBlack">#FF383838</color>
+    <color name="colorTransparentBlack">#B3FFFFFF</color>
+    <color name="colorTransparent">#4DFFFFFF</color>
+    <color name="colorGray">#FF888888</color>
+    <color name="colorButtonDisable">#FFBBBBBB</color>
+    <color name="colorButtonPress">#FF452E7F</color>
+    <color name="colorDivider">#FFDDDDDD</color>
+    <color name="colorRed">#FFD0021B</color>
+    <color name="colorWrong">#FFFFAABF</color>
+    <color name="colorRight">#FF6AE0C6</color>
+    <color name="colorNotSelect">#FFE0E0E0</color>
+    <color name="facebookBlue">#FF2376FF</color>
+    <color name="colorGold">#FFFFC722</color>
+    <color name="loading">#ff8C5EFF</color>
+</resources>

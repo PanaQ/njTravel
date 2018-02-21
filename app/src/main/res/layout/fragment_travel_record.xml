@@ -1,0 +1,33 @@
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="travel.nanjing.com.travel.business.travelRecord.TravelRecordViewModel" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="travel.nanjing.com.travel.business.travelRecord.TravelRecordFragment">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recordRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/addRecord"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right|bottom"
+            android:layout_margin="32dp"
+            android:onClick="@{viewModel::addRecord}"
+            app:srcCompat="@android:drawable/ic_menu_add" />
+
+    </FrameLayout>
+</layout>

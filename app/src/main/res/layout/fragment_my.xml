@@ -1,0 +1,97 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="travel.nanjing.com.travel.business.own.MyFragment">
+
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="47dp"
+        android:src="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/ic_launcher_round"
+        android:text="姓名"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/my_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/select_white_gray"
+        android:clickable="true"
+        android:drawableLeft="@mipmap/ic_feedback"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:text="路线"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorGray" />
+
+    <TextView
+        android:id="@+id/attation"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/select_white_gray"
+        android:clickable="true"
+        android:drawableLeft="@mipmap/ic_feedback"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:text="路线"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorGray" />
+
+    <TextView
+        android:id="@+id/funs"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/select_white_gray"
+        android:clickable="true"
+        android:drawableLeft="@mipmap/ic_feedback"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:text="路线"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorGray" />
+
+    <TextView
+        android:id="@+id/login_out"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/select_white_gray"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="LoginOut"
+        android:textColor="@color/colorRed"
+        android:textSize="14sp" />
+
+</LinearLayout>

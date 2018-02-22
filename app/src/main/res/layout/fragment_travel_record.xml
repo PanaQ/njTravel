@@ -27,7 +27,7 @@
             android:layout_gravity="right|bottom"
             android:layout_margin="32dp"
             android:onClick="@{viewModel::addRecord}"
-            app:srcCompat="@android:drawable/ic_menu_add" />
+            app:srcCompat="@mipmap/icon_add" />
 
     </FrameLayout>
 </layout>

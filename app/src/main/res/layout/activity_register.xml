@@ -1,0 +1,220 @@
+<layout>
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="travel.nanjing.com.travel.business.login.RegisterViewModel" />
+    </data>
+
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_login"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="100dp"
+            android:text="手机号"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="47dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/areaNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="all"
+                android:text="CN + 86"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/phoneNumEt"
+                android:layout_width="0dp"
+                android:layout_height="26dp"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/areaNum"
+                android:layout_weight="1"
+                android:background="#20223c86"
+                android:numeric="integer"
+                android:paddingLeft="2dp"
+                android:text="@={viewModel.phoneNum}"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="10dp"
+            android:text="密码"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/pwdFirstEt"
+                android:layout_width="0dp"
+                android:layout_height="26dp"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="47dp"
+                android:layout_weight="1"
+                android:afterTextChanged="@{viewModel::afterChange}"
+                android:background="#20223c86"
+                android:digits="@string/rule_password"
+                android:inputType="textPassword"
+                android:paddingLeft="2dp"
+                android:text="@={viewModel.passWord}"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/pwdControl_firstLl"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/pwdControl_first"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="45dp"
+                    android:onClick="@{viewModel::showPass}"
+                    android:src="@mipmap/ic_close_eye" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/passWordTypeTips"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/pwdAgainEt"
+                android:layout_width="0dp"
+                android:layout_height="26dp"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="47dp"
+                android:layout_weight="1"
+                android:afterTextChanged="@{viewModel::afterChange}"
+                android:background="#20223c86"
+                android:digits="@string/rule_password"
+                android:inputType="textPassword"
+                android:paddingLeft="2dp"
+                android:text="@={viewModel.passWordConfirm}"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/pwdControl_againLl"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/pwdControl_again"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="45dp"
+                    android:onClick="@{viewModel::showPassConfirm}"
+                    android:src="@mipmap/ic_close_eye" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="47dp"
+                android:layout_weight="1"
+                android:text="@string/samePwd"
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="50dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_pwd_verity_bg" />
+
+                <ImageView
+                    android:id="@+id/leastEightError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_error"
+                    android:visibility="@{viewModel.sameState.get()? View.GONE:View.VISIBLE }"
+                    />
+
+                <ImageView
+                    android:id="@+id/leastEightRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_right"
+                    android:visibility="@{viewModel.sameState? View.VISIBLE :View.GONE}"
+                    />
+
+            </FrameLayout>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/commitTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="45dp"
+            android:background="@mipmap/ic_comfirm"
+            android:gravity="center"
+            android:onClick="@{viewModel::commit}"
+            android:paddingLeft="5dp"
+            android:text="确认"
+            android:textColor="@color/colorWhite" />
+
+    </LinearLayout>
+</layout>

@@ -19,6 +19,7 @@
 package travel.nanjing.com.travel
 
 import android.app.Application
+import com.handarui.baselib.AndroidBase
 import travel.nanjing.com.travel.util.Constant
 
 
@@ -37,6 +38,10 @@ class MyApplication : Application() {
 
     fun initAndroidBase() {
         val httpPath = Constant.SERVER_ADDRESS
+        val androidBaseBuilder = AndroidBase.AndroidBaseBuilder(this, httpPath, httpPath)
+        androidBaseBuilder.setAESToken("Kocakin@20161001")
+        androidBaseBuilder.setDebug(BuildConfig.DEBUG)
+        androidBaseBuilder.createAndroidBase().init()
     }
 
     companion object {

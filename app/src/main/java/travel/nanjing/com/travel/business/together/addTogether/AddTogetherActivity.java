@@ -2,6 +2,7 @@ package travel.nanjing.com.travel.business.together.addTogether;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.handarui.iqfun.business.base.BaseVMActivity;
 
@@ -13,6 +14,10 @@ public class AddTogetherActivity extends BaseVMActivity<AddTogetherActivity, Add
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         ActivityAddTogetherBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_add_together);
         binding.setViewModel(this.viewModel);
     }
@@ -20,5 +25,14 @@ public class AddTogetherActivity extends BaseVMActivity<AddTogetherActivity, Add
     @Override
     public void initViewModel() {
         this.viewModel = new AddTogetherViewModel(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

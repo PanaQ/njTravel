@@ -18,12 +18,16 @@ class MyFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         var view = inflater!!.inflate(R.layout.fragment_my, container, false)
         view.findViewById<TextView>(R.id.attation).setOnClickListener({
-            startActivity(Intent(context,FriendsActivity::class.java))
+            var intent = Intent(context, FriendsActivity::class.java)
+            intent.putExtra("type", "attention")
+            startActivity(intent)
         })
         view.findViewById<TextView>(R.id.funs).setOnClickListener({
-            startActivity(Intent(context,FriendsActivity::class.java))
+            var intent = Intent(context, FriendsActivity::class.java)
+            intent.putExtra("type", "funs")
+            startActivity(intent)
         })
         return view
     }
 
-}// Required empty public constructor
+}

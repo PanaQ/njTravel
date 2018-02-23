@@ -34,6 +34,7 @@
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:id="@+id/attention"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="16dp"
             android:src="@mipmap/icon_add_attention" />
@@ -41,8 +42,37 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/contentRv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/noteRv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/note"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="输入你的评论"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/sendNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_comfirm"
+            android:text="发送"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
 </LinearLayout>

@@ -12,15 +12,25 @@ import travel.nanjing.com.travel.databinding.ActivityFriendsBinding;
 public class FriendsActivity extends BaseVMActivity<FriendsActivity, FriendsViewModel> {
 
     private ActivityFriendsBinding binding;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        type = getIntent().getStringExtra("type");
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_friends);
         binding.setViewModel(this.viewModel);
 
         binding.friendRv.setLayoutManager(new LinearLayoutManager(this));
-        binding.friendRv.setAdapter(new FriendsAdapter(this));
+        if ("funs".equals(type)) {
+            FunsAdapter adapter = new FunsAdapter(this);
+            binding.friendRv.setAdapter(adapter);
+        } else {
+            AttentionsAdapter adapter = new AttentionsAdapter(this);
+            binding.friendRv.setAdapter(adapter);
+        }
     }
 
     @Override

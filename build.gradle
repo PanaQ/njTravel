@@ -20,6 +20,13 @@ allprojects {
         maven { url "https://jitpack.io" }
         google()
         jcenter()
+        maven {
+            credentials {
+                username "admin"
+                password "hbx123654"
+            }
+            url "http://nexus.jingzheit.com:8081/repository/group-public/"
+        }
     }
 }
 

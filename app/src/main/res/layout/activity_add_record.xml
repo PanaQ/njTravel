@@ -73,30 +73,44 @@
                     android:ems="10"
                     android:gravity="left|top"
                     android:hint="输入游记内容"
-                    android:inputType="textPersonName"
+                    android:inputType="textMultiLine"
                     android:maxLines="10"
                     android:padding="16dp"
                     android:textSize="16sp" />
 
                 <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView1"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_alignStart="@+id/content"
                     android:layout_below="@+id/content"
                     android:layout_marginTop="54dp"
-                    app:srcCompat="@mipmap/ic_launcher" />
+                    android:onClick="@{viewModel::addPicture}"
+                    app:srcCompat="@mipmap/icon_add_pic" />
 
 
                 <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView2"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_below="@+id/content"
                     android:layout_marginStart="29dp"
                     android:layout_marginTop="54dp"
+                    android:onClick="@{viewModel::addPicture}"
+                    android:layout_toRightOf="@+id/imageView1"
+                    app:srcCompat="@mipmap/icon_add_pic" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_below="@+id/content"
+                    android:layout_marginStart="29dp"
+                    android:layout_marginTop="54dp"
+                    android:onClick="@{viewModel::addPicture}"
                     android:layout_toRightOf="@+id/imageView2"
-                    app:srcCompat="@mipmap/ic_launcher" />
+                    app:srcCompat="@mipmap/icon_add_pic" />
+
 
                 <TextView
                     android:id="@+id/textView3"
@@ -106,7 +120,7 @@
                     android:layout_below="@+id/content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="10dp"
-                    android:text="添加图片信息" />
+                    android:text="添加图片信息(最多三张)" />
 
             </RelativeLayout>
         </ScrollView>

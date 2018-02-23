@@ -11,7 +11,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_add">
 
 
         <TextView
@@ -26,16 +27,20 @@
 
         <EditText
             android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
             android:layout_alignParentTop="true"
+            android:layout_marginEnd="20dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="11dp"
-            android:text="@={viewModel.title}"
+            android:layout_marginTop="25dp"
             android:layout_toEndOf="@+id/textView"
             android:afterTextChanged="@{viewModel::textChange}"
+            android:background="@mipmap/bg_feedback"
             android:ems="10"
-            android:hint="输入游记标题" />
+            android:hint="输入游记标题"
+            android:paddingLeft="12dp"
+            android:text="@={viewModel.title}"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/textView2"
@@ -54,12 +59,14 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="15dp"
-            android:ems="10"
-            android:text="@={viewModel.content}"
             android:afterTextChanged="@{viewModel::textChange}"
+            android:background="@mipmap/bg_feedback"
+            android:ems="10"
             android:gravity="left|top"
             android:hint="输入游记内容"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:padding="16dp"
+            android:text="@={viewModel.content}" />
 
         <Button
             android:id="@+id/button"
@@ -68,8 +75,9 @@
             android:layout_below="@+id/content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:clickable="@{viewModel.buttonEnabled}"
             android:layout_marginTop="36dp"
+            android:background="@color/colorWhite"
+            android:clickable="@{viewModel.buttonEnabled}"
             android:onClick="@{viewModel::commit}"
             android:text="提交" />
 

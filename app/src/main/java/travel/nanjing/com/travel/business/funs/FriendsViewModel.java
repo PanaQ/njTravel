@@ -16,5 +16,4 @@ public class FriendsViewModel extends BaseViewModel<FriendsActivity> {
         super(view);
     }
 
-
 }

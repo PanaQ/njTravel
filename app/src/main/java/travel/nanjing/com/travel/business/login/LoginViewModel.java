@@ -35,4 +35,19 @@ public class LoginViewModel extends BaseViewModel<LoginActivity> {
         this.getView().startActivity(new Intent(this.getView(), RegisterActivity.class));
 
     }
+
+    private void request() {
+
+//        RxUtil.wrapRestCall().subscribe(new Consumer<Object>() {
+//            @Override
+//            public void accept(Object o) throws Exception {
+//                 this.getView().startActivity(new Intent(this.getView(), MainActivity.class));
+//            }
+//        }, new Consumer<Throwable>() {
+//            @Override
+//            public void accept(Throwable throwable) throws Exception {
+//
+//            }
+//        });
+    }
 }

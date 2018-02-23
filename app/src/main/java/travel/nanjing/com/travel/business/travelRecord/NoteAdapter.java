@@ -1,4 +1,4 @@
-package travel.nanjing.com.travel.business.funs;
+package travel.nanjing.com.travel.business.travelRecord;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -8,31 +8,31 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import travel.nanjing.com.travel.R;
+import travel.nanjing.com.travel.databinding.ItemTravelNoteBinding;
 
 /**
  * Created by zx on 2018/2/8 0008.
  */
 
-public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
+public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
     private Context context;
 
-    public FriendsAdapter(Context context) {
+    public NoteAdapter(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
 
     @Override
-    public FriendsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View root = DataBindingUtil.inflate(inflater, R.layout.item_attentions, parent, false).getRoot();
-
+    public NoteAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View root = DataBindingUtil.inflate(inflater, R.layout.item_travel_note, parent, false).getRoot();
         return new ViewHolder(root);
     }
 
     @Override
-    public void onBindViewHolder(FriendsAdapter.ViewHolder holder, int position) {
-//        ItemTravelTogetherBinding binding = DataBindingUtil.getBinding(holder.itemView);
+    public void onBindViewHolder(NoteAdapter.ViewHolder holder, int position) {
+        ItemTravelNoteBinding binding = DataBindingUtil.getBinding(holder.itemView);
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.util.Log
 import com.handarui.iqfun.business.base.BaseVMActivity
+import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions.RxPermissions
 import me.nereo.multi_image_selector.MultiImageSelector
 import me.nereo.multi_image_selector.MultiImageSelectorActivity
@@ -41,14 +42,12 @@ class AddRecordActivity : BaseVMActivity<AddRecordActivity, AddRecordViewModel>(
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView<ActivityAddRecordBinding>(this, R.layout.activity_add_record)
         binding.viewModel = this.viewModel
-        binding.imageView2.setOnClickListener({ startPicture() })
-        binding.imageView3.setOnClickListener({ startActionCamera() })
     }
 
     /**
      * 调用相机拍照
      */
-    fun startActionCamera() {
+    public fun startActionCamera() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         takePictureIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         if (takePictureIntent.resolveActivity(packageManager) != null) {
@@ -89,7 +88,7 @@ class AddRecordActivity : BaseVMActivity<AddRecordActivity, AddRecordViewModel>(
     /**
      * 选择相册
      */
-    fun showImageSelector() {
+    public fun showImageSelector() {
         MultiImageSelector.create(this)
                 .showCamera(false) // 是否显示相机. 默认为显示
                 .count(1) // 最大选择图片数量, 默认为9. 只有在选择模式为多选时有效
@@ -98,7 +97,7 @@ class AddRecordActivity : BaseVMActivity<AddRecordActivity, AddRecordViewModel>(
     }
 
 
-    fun startPicture() {
+    public fun startPicture() {
         val rxPermissions = RxPermissions(this)
         rxPermissions
                 .request(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -129,15 +128,17 @@ class AddRecordActivity : BaseVMActivity<AddRecordActivity, AddRecordViewModel>(
                 val path = data?.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT)
                 Log.d(TAG, "picture  path =" + path!![0])
                 val newPath = BitmapUtils.compress(this, path[0])
+                Picasso.with(this).load(newPath).resize(144, 144).into(this.viewModel.clickView)
 //                myAvaIv.setImageURI(Uri.parse("file://" + newPath.absolutePath))
             }
         }
-        if (requestCode == Take_Photo) {
-            if (resultCode == RESULT_OK) {
-                val newPath = BitmapUtils.compress(this, takeImageFile?.absolutePath)
-                Log.d(TAG, "picture  path =" + newPath)
-//                myAvaIv.setImageURI(Uri.parse("file://" + newPath.absolutePath))
-            }
-        }
+//        if (requestCode == Take_Photo) {
+//            if (resultCode == RESULT_OK) {
+//                val newPath = BitmapUtils.compress(this, takeImageFile?.absolutePath)
+//                Log.d(TAG, "picture  path =" + newPath)
+//                Picasso.with(this).load(newPath).into(this.viewModel.clickView)
+////                myAvaIv.setImageURI(Uri.parse("file://" + newPath.absolutePath))
+//            }
+//        }
     }
 }

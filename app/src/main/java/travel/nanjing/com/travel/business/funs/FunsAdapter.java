@@ -42,6 +42,7 @@ public class FunsAdapter extends RecyclerView.Adapter<FunsAdapter.ViewHolder> {
         return 20;
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(View itemView) {
             super(itemView);

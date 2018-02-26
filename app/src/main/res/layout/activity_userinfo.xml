@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="travel.nanjing.com.travel.business.friends.UserViewModel" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="travel.nanjing.com.travel.business.friends.UserInfoActivity">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@mipmap/bg_myinfo_top" />
+
+        <ImageView
+            android:id="@+id/setting"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            android:src="@mipmap/ic_setting" />
+
+        <ImageView
+            android:id="@+id/ava"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="140dp"
+            android:background="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ava"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:text="姓名"
+            android:textSize="16sp" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/name" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tabLayout" />
+    </RelativeLayout>
+</layout>

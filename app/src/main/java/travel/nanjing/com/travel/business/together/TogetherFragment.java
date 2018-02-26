@@ -51,6 +51,16 @@ public class TogetherFragment extends BaseVMFragment<TogetherFragment, TogetherV
         };
         dataBinding.togetherRv.setAdapter(adapter);
 
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            String type = arguments.getString("userInfo");
+            if (type != null) {
+                dataBinding.addTogether.setVisibility(View.INVISIBLE);
+            } else {
+                dataBinding.addTogether.setVisibility(View.VISIBLE);
+            }
+        }
+
         return dataBinding.getRoot();
     }
 

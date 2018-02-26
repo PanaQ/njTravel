@@ -58,7 +58,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".business.login.RegisterActivity" />
-        <activity android:name=".business.funs.FriendsActivity"></activity>
+        <activity android:name=".business.funs.FriendsActivity" />
+        <activity android:name=".business.friends.UserInfoActivity"></activity>
     </application>
 
 </manifest>

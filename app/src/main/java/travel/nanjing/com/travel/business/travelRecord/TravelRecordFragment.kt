@@ -29,15 +29,22 @@ class TravelRecordFragment : BaseVMFragment<TravelRecordFragment, TravelRecordVi
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
 
         dataBinding = DataBindingUtil.inflate<FragmentTravelRecordBinding>(inflater, R.layout.fragment_travel_record, container, false)
+
         dataBinding.viewModel = TravelRecordViewModel(this)
         dataBinding.recordRv.layoutManager = LinearLayoutManager(context)
 
         adapter = TravelRecordAdapter(context)
         adapter.onclick = TravelRecordAdapter.Onclick { startActivity(Intent(context, RecordDetailActivity::class.java)) }
         dataBinding.recordRv.adapter = adapter
+
+        var type = arguments?.getString("userInfo")
+        if (type != null) {
+            dataBinding.addRecord.visibility = View.INVISIBLE
+        } else {
+            dataBinding.addRecord.visibility = View.VISIBLE
+        }
 
         return dataBinding.root
     }

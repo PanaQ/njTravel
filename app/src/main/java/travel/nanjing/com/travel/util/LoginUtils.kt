@@ -1,6 +1,12 @@
 package com.handarui.iqfun.util
 
+import android.content.Context
+import android.content.Intent
+import android.text.TextUtils
+import com.handarui.baselib.net.TokenManager
 import travel.nanjing.com.travel.MyApplication
+import travel.nanjing.com.travel.api.bo.UserBean
+import travel.nanjing.com.travel.business.login.LoginActivity
 import travel.nanjing.com.travel.util.SPUtils
 
 /**
@@ -79,25 +85,19 @@ object LoginUtils {
         }
 
 
-//    public fun getIsUserHasLogin(): Boolean {
-//        return !TextUtils.isEmpty(TokenManager.getToken(MyApplication.instance))
-//    }
+    public fun getIsUserHasLogin(): Boolean {
+        return !TextUtils.isEmpty(TokenManager.getToken(MyApplication.instance))
+    }
 
-//    public fun saveUserInfo(userInfo: UserBean) {
-//        balance = userInfo.balance
-//        id = userInfo.id
-//        inviteCode = userInfo.inviteCode
-//        isInvited = if (userInfo.isInvited == null || userInfo.isInvited == 0) 0 else 1
-//        name = userInfo.name
-//        portraitUrl = userInfo.portraitUrl
-//        revivalCardNum = userInfo.revivalCardNum
-//        ranking = if (userInfo.ranking == null || userInfo.ranking == -1) "--" else userInfo.ranking.toString()
-//    }
-//
-//    fun relogin(context: Context) {
-//        LoginManager.getInstance().logOut()
-//        TokenManager.removeToken(context)
-//        context.startActivity(Intent(context, LoginActivity::class.java))
-//        AppManager.finishActivitiesExceptLogin()
-//    }
+    public fun saveUserInfo(userInfo: UserBean) {
+        id = userInfo.id
+        name = userInfo.name
+        portraitUrl = userInfo.avatar
+    }
+
+    fun relogin(context: Context) {
+        TokenManager.removeToken(context)
+        context.startActivity(Intent(context, LoginActivity::class.java))
+        AppManager.finishActivitiesExceptLogin()
+    }
 }

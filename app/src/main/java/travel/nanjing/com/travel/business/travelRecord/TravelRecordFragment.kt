@@ -9,8 +9,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.handarui.baselib.net.RetrofitFactory
+import com.handarui.baselib.util.RequestBeanMaker
+import com.handarui.baselib.util.RxUtil
 import com.handarui.iqfun.business.base.BaseVMFragment
+import com.zhexinit.ov.common.query.PagerQuery
 import travel.nanjing.com.travel.R
+import travel.nanjing.com.travel.api.service.NoteService
 import travel.nanjing.com.travel.databinding.FragmentTravelRecordBinding
 
 
@@ -39,13 +44,42 @@ class TravelRecordFragment : BaseVMFragment<TravelRecordFragment, TravelRecordVi
         adapter.onclick = TravelRecordAdapter.Onclick { startActivity(Intent(context, RecordDetailActivity::class.java)) }
         dataBinding.recordRv.adapter = adapter
 
-        var type = arguments?.getString("userInfo")
-        if (type != null) {
+        var userId = arguments?.getLong("userId")
+        if (userId != null) {
+            getContentById(userId)
             dataBinding.addRecord.visibility = View.INVISIBLE
         } else {
+            getContentAll()
             dataBinding.addRecord.visibility = View.VISIBLE
         }
 
         return dataBinding.root
     }
+
+    private fun getContentById(userId: Long) {
+        var requestBean = RequestBeanMaker.getRequestBean<Long>()
+        requestBean.param = userId
+
+        var service = RetrofitFactory.createRestService(NoteService::class.java)
+        RxUtil.wrapRestCall(service.getNoteById(requestBean), requestBean.reqId)
+                .subscribe({
+
+                }, {
+
+                })
+    }
+
+    private fun getContentAll() {
+        var requestBean = RequestBeanMaker.getRequestBean<PagerQuery<Void>>()
+        requestBean.param.pageSize = 100
+
+        var service = RetrofitFactory.createRestService(NoteService::class.java)
+        RxUtil.wrapRestCall(service.getNoteList(requestBean), requestBean.reqId)
+                .subscribe({
+
+                }, {
+
+                })
+    }
+
 }

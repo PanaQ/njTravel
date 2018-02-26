@@ -2,11 +2,18 @@ package travel.nanjing.com.travel.business.login;
 
 import android.content.Intent;
 import android.databinding.ObservableField;
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
+import com.handarui.baselib.net.RetrofitFactory;
+import com.handarui.baselib.util.RequestBeanMaker;
+import com.handarui.baselib.util.RxUtil;
 import com.handarui.iqfun.business.base.BaseViewModel;
+import com.zhexinit.ov.common.bean.RequestBean;
 
+import io.reactivex.functions.Consumer;
+import travel.nanjing.com.travel.api.bo.LoginBean;
+import travel.nanjing.com.travel.api.service.UserLoginService;
 import travel.nanjing.com.travel.business.MainActivity;
 
 /**
@@ -23,12 +30,12 @@ public class LoginViewModel extends BaseViewModel<LoginActivity> {
     }
 
     public void login(View view) {
-        if ("root".equals(count.get()) &&
-                "root".equals(passWord.get())) {
-            this.getView().startActivity(new Intent(this.getView(), MainActivity.class));
-        } else {
-            Toast.makeText(this.getView(), "账号密码错误", Toast.LENGTH_SHORT).show();
-        }
+        getView().startActivity(new Intent(getView(), MainActivity.class));
+//        if (!TextUtils.isEmpty(count.get()) && !TextUtils.isEmpty(passWord.get())) {
+//            request();
+//        } else {
+//            Toast.makeText(this.getView(), "账号密码为空", Toast.LENGTH_SHORT).show();
+//        }
     }
 
     public void register(View view) {
@@ -37,17 +44,26 @@ public class LoginViewModel extends BaseViewModel<LoginActivity> {
     }
 
     private void request() {
+        RequestBean<LoginBean> requestBean = RequestBeanMaker.getRequestBean();
 
-//        RxUtil.wrapRestCall().subscribe(new Consumer<Object>() {
-//            @Override
-//            public void accept(Object o) throws Exception {
-//                 this.getView().startActivity(new Intent(this.getView(), MainActivity.class));
-//            }
-//        }, new Consumer<Throwable>() {
-//            @Override
-//            public void accept(Throwable throwable) throws Exception {
-//
-//            }
-//        });
+        LoginBean param = new LoginBean();
+        param.setLogin(count.get());
+        param.setPassword(passWord.get());
+        requestBean.setParam(param);
+
+        RxUtil.wrapRestCall(RetrofitFactory.createRestService(UserLoginService.class).login(requestBean), requestBean.getReqId())
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        getView().startActivity(new Intent(getView(), MainActivity.class));
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.e(TAG, "accept: " + throwable.getMessage());
+                    }
+                });
     }
+
+    private static final String TAG = "LoginViewModel";
 }

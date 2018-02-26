@@ -54,6 +54,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'handarui:android-base2:1.0.2-SNAPSHOT'
     implementation 'com.squareup.picasso:picasso:2.3.2'
+    compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
 }
 kapt {
     generateStubs = true

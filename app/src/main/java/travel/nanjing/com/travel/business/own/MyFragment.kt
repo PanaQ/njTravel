@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import travel.nanjing.com.travel.R
 import travel.nanjing.com.travel.business.funs.FriendsActivity
+import travel.nanjing.com.travel.business.myrecord.DealMyRecordActivity
 
 /**
  */
@@ -27,7 +28,11 @@ class MyFragment : Fragment() {
             intent.putExtra("type", "funs")
             startActivity(intent)
         })
+        view.findViewById<TextView>(R.id.my_record).setOnClickListener({
+            var intent = Intent(context, DealMyRecordActivity::class.java)
+            intent.putExtra("type", "funs")
+            startActivity(intent)
+        })
         return view
     }
-
 }

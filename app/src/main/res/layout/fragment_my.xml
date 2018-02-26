@@ -83,6 +83,44 @@
         android:background="@color/colorGray" />
 
     <TextView
+        android:id="@+id/my_record"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/select_white_gray"
+        android:clickable="true"
+        android:drawableLeft="@mipmap/ic_my_record"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:text="我的游记"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorGray" />
+
+    <TextView
+        android:id="@+id/my_together"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/select_white_gray"
+        android:clickable="true"
+        android:drawableLeft="@mipmap/ic_my_record"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:text="我的结伴游"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorGray" />
+
+    <TextView
         android:id="@+id/feedback"
         android:layout_width="match_parent"
         android:layout_height="48dp"

@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import travel.nanjing.com.travel.R;
+import travel.nanjing.com.travel.api.bo.NoteBo;
 import travel.nanjing.com.travel.databinding.ItemTravelRecordBinding;
 
 /**
@@ -18,10 +21,19 @@ public class TravelRecordAdapter extends RecyclerView.Adapter<TravelRecordAdapte
 
     private final LayoutInflater inflater;
     private Context context;
+    private ArrayList<NoteBo> data = new ArrayList<>();
 
     public TravelRecordAdapter(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
+    }
+
+    public ArrayList<NoteBo> getData() {
+        return data;
+    }
+
+    public void setData(ArrayList<NoteBo> data) {
+        this.data = data;
     }
 
     @Override
@@ -38,7 +50,7 @@ public class TravelRecordAdapter extends RecyclerView.Adapter<TravelRecordAdapte
 
     @Override
     public int getItemCount() {
-        return 20;
+        return data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

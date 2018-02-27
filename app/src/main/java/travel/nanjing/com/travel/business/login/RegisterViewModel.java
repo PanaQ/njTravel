@@ -21,8 +21,9 @@ import com.zhexinit.ov.common.bean.RequestBean;
 
 import io.reactivex.functions.Consumer;
 import travel.nanjing.com.travel.R;
+import travel.nanjing.com.travel.api.bo.BaseUserBo;
 import travel.nanjing.com.travel.api.bo.LoginBean;
-import travel.nanjing.com.travel.api.service.UserLoginService;
+import travel.nanjing.com.travel.api.service.UserService;
 import travel.nanjing.com.travel.business.MainActivity;
 
 /**
@@ -82,15 +83,16 @@ public class RegisterViewModel extends BaseViewModel<RegisterActivity> {
     }
 
     void requestRegiste() {
-        RequestBean<LoginBean> requestBean = RequestBeanMaker.getRequestBean();
+        RequestBean<BaseUserBo> requestBean = RequestBeanMaker.getRequestBean();
 
-        LoginBean param = new LoginBean();
-        param.setLogin(phoneNum.get());
+        BaseUserBo param = new BaseUserBo();
+        param.setName(phoneNum.get());
+        param.setPhone(phoneNum.get());
         param.setPassword(passWord.get());
         requestBean.setParam(param);
 
 
-        UserLoginService service = RetrofitFactory.createRestService(UserLoginService.class);
+         UserService service = RetrofitFactory.createRestService(UserService.class);
         RxUtil.wrapRestCall(service.register(requestBean), requestBean.getReqId()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {

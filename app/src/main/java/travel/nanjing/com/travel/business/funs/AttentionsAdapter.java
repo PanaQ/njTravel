@@ -7,7 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import travel.nanjing.com.travel.R;
+import travel.nanjing.com.travel.api.bo.AttentionBo;
+import travel.nanjing.com.travel.api.bo.MateNoteBo;
 
 /**
  * Created by zx on 2018/2/8 0008.
@@ -17,6 +21,7 @@ public class AttentionsAdapter extends RecyclerView.Adapter<AttentionsAdapter.Vi
 
     private final LayoutInflater inflater;
     private Context context;
+    private List<AttentionBo> data  ;
 
     public AttentionsAdapter(Context context) {
         this.context = context;
@@ -38,6 +43,10 @@ public class AttentionsAdapter extends RecyclerView.Adapter<AttentionsAdapter.Vi
     @Override
     public int getItemCount() {
         return 20;
+    }
+
+    public void setData(List<AttentionBo> data) {
+        this.data = data;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

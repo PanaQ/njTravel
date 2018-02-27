@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import travel.nanjing.com.travel.R;
+import travel.nanjing.com.travel.api.bo.AttentionBo;
 import travel.nanjing.com.travel.databinding.ItemAttentionsBinding;
 
 /**
@@ -18,6 +21,7 @@ public class FunsAdapter extends RecyclerView.Adapter<FunsAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
     private Context context;
+    private List<AttentionBo> data;
 
     public FunsAdapter(Context context) {
         this.context = context;
@@ -40,6 +44,10 @@ public class FunsAdapter extends RecyclerView.Adapter<FunsAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return 20;
+    }
+
+    public void setData(List<AttentionBo> data) {
+        this.data = data;
     }
 
 

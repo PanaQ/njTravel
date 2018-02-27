@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,15 +15,22 @@ import com.handarui.baselib.util.RequestBeanMaker
 import com.handarui.baselib.util.RxUtil
 import com.handarui.iqfun.business.base.BaseVMFragment
 import com.zhexinit.ov.common.query.PagerQuery
+import com.zhexinit.ov.common.query.SortPagerQuery
 import travel.nanjing.com.travel.R
+import travel.nanjing.com.travel.api.bo.BaseNoteBo
+import travel.nanjing.com.travel.api.bo.NoteQuery
 import travel.nanjing.com.travel.api.service.NoteService
 import travel.nanjing.com.travel.databinding.FragmentTravelRecordBinding
+import java.util.ArrayList
 
 
 /**
  * A simple [Fragment] subclass.
  */
 class TravelRecordFragment : BaseVMFragment<TravelRecordFragment, TravelRecordViewModel>() {
+
+    val TAG: String = "TravelRecordFragment"
+
 
     private lateinit var dataBinding: FragmentTravelRecordBinding
 
@@ -45,7 +53,7 @@ class TravelRecordFragment : BaseVMFragment<TravelRecordFragment, TravelRecordVi
         dataBinding.recordRv.adapter = adapter
 
         var userId = arguments?.getLong("userId")
-        if (userId != null) {
+        if (userId != null && userId!=0L) {
             getContentById(userId)
             dataBinding.addRecord.visibility = View.INVISIBLE
         } else {
@@ -57,28 +65,30 @@ class TravelRecordFragment : BaseVMFragment<TravelRecordFragment, TravelRecordVi
     }
 
     private fun getContentById(userId: Long) {
-        var requestBean = RequestBeanMaker.getRequestBean<Long>()
-        requestBean.param = userId
+        var requestBean = RequestBeanMaker.getRequestBean<SortPagerQuery<NoteQuery>>()
+        requestBean.param.pageSize = 100
+        requestBean.param.data.userId = userId
+
 
         var service = RetrofitFactory.createRestService(NoteService::class.java)
-        RxUtil.wrapRestCall(service.getNoteById(requestBean), requestBean.reqId)
+        RxUtil.wrapRestCall(service.getNoteListByUserId(requestBean), requestBean.reqId)
                 .subscribe({
-
+                    adapter.data = (it.data as ArrayList<BaseNoteBo>?)!!
                 }, {
-
+                    Log.i(TAG, it.message)
                 })
     }
 
     private fun getContentAll() {
-        var requestBean = RequestBeanMaker.getRequestBean<PagerQuery<Void>>()
+        var requestBean = RequestBeanMaker.getRequestBean<SortPagerQuery<Any>>()
         requestBean.param.pageSize = 100
 
         var service = RetrofitFactory.createRestService(NoteService::class.java)
         RxUtil.wrapRestCall(service.getNoteList(requestBean), requestBean.reqId)
                 .subscribe({
-
+                    adapter.data = (it.data as ArrayList<BaseNoteBo>?)!!
                 }, {
-
+                    Log.i(TAG, it.message)
                 })
     }
 

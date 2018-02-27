@@ -52,7 +52,7 @@ class PagerAdapter extends FragmentPagerAdapter {
         super(fm);
         Bundle args = new Bundle();
 
-        args.putString("userInfo", "userInfo");
+        args.putLong("userId", 0);
 
         travelRecordFragment.setArguments(args);
         togetherFragment.setArguments(args);

@@ -1,6 +1,7 @@
 package travel.nanjing.com.travel.api.bo;
 
 
+
 import javax.validation.constraints.NotNull;
 
 public class AddNoteCommentBo {
@@ -10,12 +11,6 @@ public class AddNoteCommentBo {
      */
     @NotNull(message = "游记id不能为空")
     private Long noteId;
-
-    /**
-     * 留言用户id
-     */
-    @NotNull(message = "留言用户id不能为空")
-    private Long userId;
 
     /**
      * 留言内容
@@ -30,14 +25,6 @@ public class AddNoteCommentBo {
         this.noteId = noteId;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public String getComment() {
         return comment;
     }
@@ -45,6 +32,7 @@ public class AddNoteCommentBo {
     public void setComment(String comment) {
         this.comment = comment == null ? null : comment.trim();
     }
+
 
 
 }

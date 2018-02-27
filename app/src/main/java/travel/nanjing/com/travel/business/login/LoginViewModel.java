@@ -2,8 +2,10 @@ package travel.nanjing.com.travel.business.login;
 
 import android.content.Intent;
 import android.databinding.ObservableField;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.handarui.baselib.net.RetrofitFactory;
 import com.handarui.baselib.util.RequestBeanMaker;
@@ -13,7 +15,7 @@ import com.zhexinit.ov.common.bean.RequestBean;
 
 import io.reactivex.functions.Consumer;
 import travel.nanjing.com.travel.api.bo.LoginBean;
-import travel.nanjing.com.travel.api.service.UserLoginService;
+import travel.nanjing.com.travel.api.service.UserService;
 import travel.nanjing.com.travel.business.MainActivity;
 
 /**
@@ -30,12 +32,12 @@ public class LoginViewModel extends BaseViewModel<LoginActivity> {
     }
 
     public void login(View view) {
-        getView().startActivity(new Intent(getView(), MainActivity.class));
-//        if (!TextUtils.isEmpty(count.get()) && !TextUtils.isEmpty(passWord.get())) {
-//            request();
-//        } else {
-//            Toast.makeText(this.getView(), "账号密码为空", Toast.LENGTH_SHORT).show();
-//        }
+
+        if (!TextUtils.isEmpty(count.get()) && !TextUtils.isEmpty(passWord.get())) {
+            request();
+        } else {
+            Toast.makeText(this.getView(), "账号密码为空", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void register(View view) {
@@ -51,7 +53,7 @@ public class LoginViewModel extends BaseViewModel<LoginActivity> {
         param.setPassword(passWord.get());
         requestBean.setParam(param);
 
-        RxUtil.wrapRestCall(RetrofitFactory.createRestService(UserLoginService.class).login(requestBean), requestBean.getReqId())
+        RxUtil.wrapRestCall(RetrofitFactory.createRestService(UserService.class).login(requestBean), requestBean.getReqId())
                 .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(Object o) throws Exception {

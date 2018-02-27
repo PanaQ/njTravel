@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import travel.nanjing.com.travel.R;
+import travel.nanjing.com.travel.api.bo.BaseNoteBo;
 import travel.nanjing.com.travel.api.bo.NoteBo;
 import travel.nanjing.com.travel.databinding.ItemTravelRecordBinding;
 
@@ -21,18 +22,18 @@ public class TravelRecordAdapter extends RecyclerView.Adapter<TravelRecordAdapte
 
     private final LayoutInflater inflater;
     private Context context;
-    private ArrayList<NoteBo> data = new ArrayList<>();
+    private ArrayList<BaseNoteBo> data = new ArrayList<>();
 
     public TravelRecordAdapter(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
 
-    public ArrayList<NoteBo> getData() {
+    public ArrayList<BaseNoteBo> getData() {
         return data;
     }
 
-    public void setData(ArrayList<NoteBo> data) {
+    public void setData(ArrayList<BaseNoteBo> data) {
         this.data = data;
     }
 

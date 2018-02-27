@@ -5,9 +5,19 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.handarui.baselib.net.RetrofitFactory;
+import com.handarui.baselib.util.RequestBeanMaker;
+import com.handarui.baselib.util.RxUtil;
 import com.handarui.iqfun.business.base.BaseVMActivity;
+import com.zhexinit.ov.common.bean.RequestBean;
 
+import java.util.List;
+
+import io.reactivex.functions.Consumer;
 import travel.nanjing.com.travel.R;
+import travel.nanjing.com.travel.api.bo.AttentionBo;
+import travel.nanjing.com.travel.api.bo.MateNoteBo;
+import travel.nanjing.com.travel.api.service.FollowService;
 import travel.nanjing.com.travel.business.friends.UserInfoActivity;
 import travel.nanjing.com.travel.databinding.ActivityFriendsBinding;
 
@@ -35,6 +45,7 @@ public class FriendsActivity extends BaseVMActivity<FriendsActivity, FriendsView
                 }
             };
             binding.friendRv.setAdapter(adapter);
+            requestFans(adapter);
         } else {
             AttentionsAdapter adapter = new AttentionsAdapter(this);
             adapter.onclick = new AttentionsAdapter.Onclick() {
@@ -44,7 +55,44 @@ public class FriendsActivity extends BaseVMActivity<FriendsActivity, FriendsView
                 }
             };
             binding.friendRv.setAdapter(adapter);
+            requestAttention(adapter);
         }
+    }
+
+    private void requestFans(final FunsAdapter adapter) {
+        RequestBean<Object> requestBean = RequestBeanMaker.getRequestBean();
+
+
+        FollowService restService = RetrofitFactory.createRestService(FollowService.class);
+        RxUtil.wrapRestCall(restService.getFansList(), requestBean.getReqId()).subscribe(new Consumer<List<AttentionBo>>() {
+            @Override
+            public void accept(List<AttentionBo> attentionBos) throws Exception {
+                adapter.setData(attentionBos);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+
+            }
+        });
+    }
+
+    private void requestAttention(final AttentionsAdapter adapter) {
+        RequestBean<Object> requestBean = RequestBeanMaker.getRequestBean();
+
+
+        FollowService restService = RetrofitFactory.createRestService(FollowService.class);
+        RxUtil.wrapRestCall(restService.getAttentionList(), requestBean.getReqId()).subscribe(new Consumer<List<AttentionBo>>() {
+            @Override
+            public void accept(List<AttentionBo> attentionBos) throws Exception {
+                adapter.setData(attentionBos);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+
+            }
+        });
     }
 
     private void startActivity() {

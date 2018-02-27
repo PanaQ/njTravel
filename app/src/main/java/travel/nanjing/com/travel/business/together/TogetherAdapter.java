@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zhexinit.ov.common.query.ListBean;
+
 import travel.nanjing.com.travel.R;
+import travel.nanjing.com.travel.api.bo.MateNoteBo;
 import travel.nanjing.com.travel.databinding.ItemTravelTogetherBinding;
 
 /**
@@ -18,6 +21,7 @@ public class TogetherAdapter extends RecyclerView.Adapter<TogetherAdapter.ViewHo
 
     private final LayoutInflater inflater;
     private Context context;
+    private ListBean<MateNoteBo> data;
 
     public TogetherAdapter(Context context) {
         this.context = context;
@@ -39,6 +43,10 @@ public class TogetherAdapter extends RecyclerView.Adapter<TogetherAdapter.ViewHo
     @Override
     public int getItemCount() {
         return 20;
+    }
+
+    public void setData(ListBean<MateNoteBo> data) {
+        this.data = data;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

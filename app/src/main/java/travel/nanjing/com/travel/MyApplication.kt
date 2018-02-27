@@ -19,6 +19,7 @@
 package travel.nanjing.com.travel
 
 import android.app.Application
+import android.content.Context
 import com.handarui.baselib.AndroidBase
 import travel.nanjing.com.travel.util.Constant
 
@@ -49,3 +50,4 @@ class MyApplication : Application() {
     }
 
 }
+

@@ -1,9 +1,7 @@
 package travel.nanjing.com.travel.api.bo;
 
 public class UserBo {
-    /**
-     * 主键
-     */
+
     private Long id;
 
     /**

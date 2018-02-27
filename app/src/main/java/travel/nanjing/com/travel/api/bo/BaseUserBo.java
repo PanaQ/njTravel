@@ -19,10 +19,11 @@ public class BaseUserBo {
      * 密码
      */
     private String password;
-    /**
-     * 确定密码
-     */
-    private String confirmPassword;
+//    /**
+//     * 确定密码
+//     */
+//    @NotEmpty(message = "确认密码不能为空")
+//    private String confirmPassword;
 
     public String getName() {
         return name;
@@ -48,11 +49,11 @@ public class BaseUserBo {
         this.password = password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
+//    public String getConfirmPassword() {
+//        return confirmPassword;
+//    }
+//
+//    public void setConfirmPassword(String confirmPassword) {
+//        this.confirmPassword = confirmPassword;
+//    }
 }

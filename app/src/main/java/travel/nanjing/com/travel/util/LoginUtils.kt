@@ -6,6 +6,7 @@ import android.text.TextUtils
 import com.handarui.baselib.net.TokenManager
 import travel.nanjing.com.travel.MyApplication
 import travel.nanjing.com.travel.api.bo.UserBean
+import travel.nanjing.com.travel.api.bo.UserBo
 import travel.nanjing.com.travel.business.login.LoginActivity
 import travel.nanjing.com.travel.util.SPUtils
 
@@ -89,7 +90,7 @@ object LoginUtils {
         return !TextUtils.isEmpty(TokenManager.getToken(MyApplication.instance))
     }
 
-    public fun saveUserInfo(userInfo: UserBean) {
+    public fun saveUserInfo(userInfo: UserBo) {
         id = userInfo.id
         name = userInfo.name
         portraitUrl = userInfo.avatar

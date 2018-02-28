@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.handarui.iqfun.util.LoginUtils;
 
 import travel.nanjing.com.travel.R;
+import travel.nanjing.com.travel.business.login.LoginActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -18,7 +19,7 @@ public class WelcomeActivity extends AppCompatActivity {
             startActivity(new Intent(this, MainActivity.class));
             finish();
         } else {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
             finish();
         }
     }

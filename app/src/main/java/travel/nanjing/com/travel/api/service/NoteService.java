@@ -49,12 +49,12 @@ public interface NoteService {
      * 获取自己的所有游记列表
      */
     @POST("/note/getNoteListByMine")
-    Observable<ResponseBean<ListBean<BaseNoteBo>>> getNoteListByMine(@Body RequestBean<SortPagerQuery> requestBean);
+    Observable<ResponseBean<ListBean<BaseNoteBo>>> getNoteListByMine(@Body RequestBean<Long> requestBean);
 
     /**
      * 获取所有的游记列表
      */
     @POST("/note/getNoteList")
-    Observable<ResponseBean<ListBean<BaseNoteBo>>> getNoteList(@Body RequestBean<SortPagerQuery> requestBean);
+    Observable<ResponseBean<ListBean<BaseNoteBo>>> getNoteList(@Body RequestBean<Long> requestBean);
 
 }

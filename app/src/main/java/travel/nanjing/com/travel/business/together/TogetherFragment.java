@@ -81,12 +81,8 @@ public class TogetherFragment extends BaseVMFragment<TogetherFragment, TogetherV
     }
 
     private void getContentById(long userId) {
-        RequestBean<SortPagerQuery<MateNoteQuery>> requestBean = RequestBeanMaker.getRequestBean();
-        SortPagerQuery<MateNoteQuery> param = new SortPagerQuery<>();
-        param.setPageSize(100);
-        param.getData().setUserId(userId);
-
-        requestBean.setParam(param);
+        RequestBean<Long> requestBean = RequestBeanMaker.getRequestBean();
+        requestBean.setParam(userId);
 
 
         MateNoteService service = RetrofitFactory.createRestService(MateNoteService.class);
@@ -110,11 +106,8 @@ public class TogetherFragment extends BaseVMFragment<TogetherFragment, TogetherV
     }
 
     public void getContentAll() {
-        RequestBean<SortPagerQuery> requestBean = RequestBeanMaker.getRequestBean();
-        SortPagerQuery param = new SortPagerQuery<>();
-        param.setPageSize(100);
-
-        requestBean.setParam(param);
+        RequestBean<Long> requestBean = RequestBeanMaker.getRequestBean();
+        requestBean.setParam(-1L);
 
 
         MateNoteService service = RetrofitFactory.createRestService(MateNoteService.class);

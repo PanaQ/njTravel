@@ -27,4 +27,7 @@ public interface FollowService {
     @POST("/follow/getFansList")
     Observable<ResponseBean<List<AttentionBo>>> getFansList();
 
+    @POST("/follow/isFollow")
+    Observable<ResponseBean<Boolean>> isFollow(@Body RequestBean<Long> requestBean);
+
 }

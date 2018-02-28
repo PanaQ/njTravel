@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import travel.nanjing.com.travel.R;
+import travel.nanjing.com.travel.api.bo.NoteCommentBo;
 import travel.nanjing.com.travel.databinding.ItemTravelNoteBinding;
 
 /**
@@ -18,6 +21,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
     private Context context;
+    private List<NoteCommentBo> data;
 
     public NoteAdapter(Context context) {
         this.context = context;
@@ -38,6 +42,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return 20;
+    }
+
+    public void setData(List<NoteCommentBo> data) {
+        this.data = data;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

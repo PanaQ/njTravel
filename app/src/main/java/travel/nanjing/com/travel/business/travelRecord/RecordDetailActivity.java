@@ -14,10 +14,15 @@ import com.handarui.baselib.util.RequestBeanMaker;
 import com.handarui.baselib.util.RxUtil;
 import com.zhexinit.ov.common.bean.RequestBean;
 
+import java.util.List;
+
 import io.reactivex.functions.Consumer;
 import travel.nanjing.com.travel.R;
 import travel.nanjing.com.travel.api.bo.MateNoteBo;
+import travel.nanjing.com.travel.api.bo.NoteBo;
+import travel.nanjing.com.travel.api.bo.NoteCommentBo;
 import travel.nanjing.com.travel.api.service.FollowService;
+import travel.nanjing.com.travel.api.service.NoteService;
 
 /**
  *
@@ -26,8 +31,10 @@ public class RecordDetailActivity extends AppCompatActivity {
 
     private RecyclerView noteRv;
     private RecyclerView contentRv;
-    private NoteAdapter adapter;
+    private NoteAdapter noteAdapter;
     private ImageView attention;
+    private boolean isFollow;
+    long userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +51,13 @@ public class RecordDetailActivity extends AppCompatActivity {
         noteRv.setLayoutManager(new LinearLayoutManager(this));
         contentRv.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new NoteAdapter(this);
-        noteRv.setAdapter(adapter);
+        noteAdapter = new NoteAdapter(this);
+        noteRv.setAdapter(noteAdapter);
 
         attention.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (1 == 1) {
+                if (isFollow) {
                     addAttention();
                 } else {
                     cancleAttention();
@@ -58,7 +65,38 @@ public class RecordDetailActivity extends AppCompatActivity {
                 Toast.makeText(RecordDetailActivity.this, "关注", Toast.LENGTH_SHORT).show();
             }
         });
+
+        Long recordId = getIntent().getLongExtra("recordId", -1L);
+        userId = getIntent().getLongExtra("userId", -1L);
+        if (recordId != -1L) {
+            getContentById(recordId);
+        }
+        if (userId != -1L) {
+            getIsFollow();
+        }
     }
+
+    private void getContentById(Long recordId) {
+
+        RequestBean<Long> requestBean = RequestBeanMaker.getRequestBean();
+        requestBean.setParam(recordId);
+
+        NoteService service = RetrofitFactory.createRestService(NoteService.class);
+        RxUtil.wrapRestCall(service.getNoteById(requestBean), requestBean.getReqId()).subscribe(new Consumer<NoteBo>() {
+            @Override
+            public void accept(NoteBo noteBo) throws Exception {
+                List<NoteCommentBo> noteCommentBoList = noteBo.getNoteCommentBoList();
+                noteAdapter.setData(noteCommentBoList);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+
+            }
+        });
+    }
+
+    private static final String TAG = "RecordDetailActivity";
 
     private void cancleAttention() {
         RequestBean<Long> requestBean = RequestBeanMaker.getRequestBean();
@@ -69,7 +107,7 @@ public class RecordDetailActivity extends AppCompatActivity {
         RxUtil.wrapRestCall(restService.cancelFollow(requestBean), requestBean.getReqId()).subscribe(new Consumer<MateNoteBo>() {
             @Override
             public void accept(MateNoteBo mateNoteBo) throws Exception {
-
+                isFollow = false;
             }
         }, new Consumer<Throwable>() {
             @Override
@@ -81,14 +119,13 @@ public class RecordDetailActivity extends AppCompatActivity {
 
     private void addAttention() {
         RequestBean<Long> requestBean = RequestBeanMaker.getRequestBean();
-        //todo userId
-        requestBean.setParam(1L);
+        requestBean.setParam(userId);
 
         FollowService restService = RetrofitFactory.createRestService(FollowService.class);
         RxUtil.wrapRestCall(restService.addFollow(requestBean), requestBean.getReqId()).subscribe(new Consumer<Void>() {
             @Override
             public void accept(Void aVoid) throws Exception {
-
+                isFollow = true;
             }
         }, new Consumer<Throwable>() {
             @Override
@@ -105,5 +142,23 @@ public class RecordDetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void getIsFollow() {
+        RequestBean<Long> requestBean = RequestBeanMaker.getRequestBean();
+        requestBean.setParam(userId);
+
+        FollowService restService = RetrofitFactory.createRestService(FollowService.class);
+        RxUtil.wrapRestCall(restService.isFollow(requestBean), requestBean.getReqId()).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+                isFollow = aBoolean;
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+
+            }
+        });
     }
 }

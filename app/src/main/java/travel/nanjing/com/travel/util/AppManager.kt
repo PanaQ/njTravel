@@ -58,11 +58,9 @@ object AppManager {
      * 结束指定的Activity
      */
     fun finishActivity(activity: Activity?) {
-        var activity = activity
         if (activity != null) {
             activity.finish()
             activityStack!!.remove(activity)
-            activity = null
         }
     }
 
@@ -96,10 +94,7 @@ object AppManager {
     }
 
     fun finishActivitiesExceptLogin() {
-        activityStack?.forEach { it ->
-//            if (it !is LoginActivity) {
-//                it.finish()
-//            }
+        activityStack?.forEach {
         }
     }
 

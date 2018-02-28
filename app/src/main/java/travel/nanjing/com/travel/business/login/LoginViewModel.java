@@ -11,10 +11,12 @@ import com.handarui.baselib.net.RetrofitFactory;
 import com.handarui.baselib.util.RequestBeanMaker;
 import com.handarui.baselib.util.RxUtil;
 import com.handarui.iqfun.business.base.BaseViewModel;
+import com.handarui.iqfun.util.LoginUtils;
 import com.zhexinit.ov.common.bean.RequestBean;
 
 import io.reactivex.functions.Consumer;
 import travel.nanjing.com.travel.api.bo.LoginBean;
+import travel.nanjing.com.travel.api.bo.UserBo;
 import travel.nanjing.com.travel.api.service.UserService;
 import travel.nanjing.com.travel.business.MainActivity;
 
@@ -57,12 +59,31 @@ public class LoginViewModel extends BaseViewModel<LoginActivity> {
                 .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(Object o) throws Exception {
+                        getUserInfo();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.e(TAG, "accept: request" + throwable.getMessage());
+                    }
+                });
+    }
+
+    private void getUserInfo() {
+        RequestBean<Void> requestBean = RequestBeanMaker.getRequestBean();
+
+
+        RxUtil.wrapRestCall(RetrofitFactory.createRestService(UserService.class).getMyInfo(requestBean), requestBean.getReqId())
+                .subscribe(new Consumer<UserBo>() {
+                    @Override
+                    public void accept(UserBo o) throws Exception {
+                        LoginUtils.INSTANCE.saveUserInfo(o);
                         getView().startActivity(new Intent(getView(), MainActivity.class));
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Log.e(TAG, "accept: " + throwable.getMessage());
+                        Log.e(TAG, "accept:getUserInfo " + throwable.getMessage());
                     }
                 });
     }

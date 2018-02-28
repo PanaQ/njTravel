@@ -195,7 +195,7 @@ class CircleImageView : ImageView {
     }
 
 
-    @Deprecated("Use {@link #setBorderColor(int)} instead")
+    @Deprecated("Use {@link #setBorderColor(int)} instead", ReplaceWith("borderColor = context.resources.getColor(borderColorRes)"))
     fun setBorderColorResource(@ColorRes borderColorRes: Int) {
         borderColor = context.resources.getColor(borderColorRes)
     }
@@ -208,7 +208,7 @@ class CircleImageView : ImageView {
      * drawn behind the drawable
      *
      */
-    @Deprecated("Fill color support is going to be removed in the future")
+    @Deprecated("Fill color support is going to be removed in the future", ReplaceWith("fillColor = context.resources.getColor(fillColorRes)"))
     fun setFillColorResource(@ColorRes fillColorRes: Int) {
         fillColor = context.resources.getColor(fillColorRes)
     }

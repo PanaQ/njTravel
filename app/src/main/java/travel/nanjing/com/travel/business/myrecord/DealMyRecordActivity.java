@@ -1,14 +1,20 @@
 package travel.nanjing.com.travel.business.myrecord;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.handarui.baselib.net.RetrofitFactory;
+import com.handarui.baselib.util.RequestBeanMaker;
+import com.handarui.baselib.util.RxUtil;
+import com.handarui.iqfun.util.LoginUtils;
 import com.yanzhenjie.recyclerview.swipe.Closeable;
 import com.yanzhenjie.recyclerview.swipe.OnSwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
@@ -16,10 +22,24 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuAdapter;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
+import com.zhexinit.ov.common.bean.RequestBean;
+import com.zhexinit.ov.common.query.ListBean;
 
+import java.util.List;
+
+import io.reactivex.functions.Consumer;
 import travel.nanjing.com.travel.R;
+import travel.nanjing.com.travel.api.bo.BaseNoteBo;
+import travel.nanjing.com.travel.api.bo.UserBo;
+import travel.nanjing.com.travel.api.service.NoteService;
+import travel.nanjing.com.travel.api.service.UserService;
+import travel.nanjing.com.travel.business.MainActivity;
 
 public class DealMyRecordActivity extends AppCompatActivity {
+
+    private static final String TAG = "DealMyRecordActivity";
+
+    private MenuAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +57,28 @@ public class DealMyRecordActivity extends AppCompatActivity {
 
             }
         });
-        swipeMenuRecyclerView.setAdapter(new MenuAdapter(this));
+        adapter = new MenuAdapter(this);
+        swipeMenuRecyclerView.setAdapter(adapter);
+        requestMyRecord();
+    }
+
+    private void requestMyRecord() {
+        RequestBean<Long> requestBean = RequestBeanMaker.getRequestBean();
+        requestBean.setParam(LoginUtils.INSTANCE.getId());
+
+        RxUtil.wrapRestCall(RetrofitFactory.createRestService(NoteService.class).getNoteListByMine(requestBean), requestBean.getReqId())
+                .subscribe(new Consumer<ListBean<BaseNoteBo>>() {
+                    @Override
+                    public void accept(ListBean<BaseNoteBo> baseNoteBoListBean) throws Exception {
+                        adapter.setData(baseNoteBoListBean.data);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.e(TAG, "accept:getUserInfo " + throwable.getMessage());
+                    }
+                });
+
     }
 
     private SwipeMenuCreator swipeMenuCreator = new SwipeMenuCreator() {
@@ -61,6 +102,7 @@ public class DealMyRecordActivity extends AppCompatActivity {
 class MenuAdapter extends SwipeMenuAdapter<MenuAdapter.DefaultViewHolder> {
 
     Context context;
+    private List<BaseNoteBo> data;
 
     public MenuAdapter(Context context) {
         this.context = context;
@@ -83,6 +125,11 @@ class MenuAdapter extends SwipeMenuAdapter<MenuAdapter.DefaultViewHolder> {
 
     @Override
     public void onBindViewHolder(MenuAdapter.DefaultViewHolder holder, int position) {
+    }
+
+    public void setData(List<BaseNoteBo> data) {
+        this.data = data;
+        notifyDataSetChanged();
     }
 
     public class DefaultViewHolder extends RecyclerView.ViewHolder {

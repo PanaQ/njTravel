@@ -34,7 +34,7 @@ class AddRecordActivity : BaseVMActivity<AddRecordActivity, AddRecordViewModel>(
         viewModel = AddRecordViewModel(this)
     }
 
-    lateinit var binding: ActivityAddRecordBinding
+    protected  lateinit var binding: ActivityAddRecordBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView<ActivityAddRecordBinding>(this, R.layout.activity_add_record)

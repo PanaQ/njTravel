@@ -10,7 +10,7 @@ import travel.nanjing.com.travel.R;
 import travel.nanjing.com.travel.databinding.ActivityAddTogetherBinding;
 
 public class AddTogetherActivity extends BaseVMActivity<AddTogetherActivity, AddTogetherViewModel> {
-
+    protected ActivityAddTogetherBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +18,7 @@ public class AddTogetherActivity extends BaseVMActivity<AddTogetherActivity, Add
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ActivityAddTogetherBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_add_together);
+         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_together);
         binding.setViewModel(this.viewModel);
     }
 

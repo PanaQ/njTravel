@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.zhexinit.ov.common.query.ListBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import travel.nanjing.com.travel.R;
@@ -23,8 +24,7 @@ public class TogetherAdapter extends RecyclerView.Adapter<TogetherAdapter.ViewHo
 
     private final LayoutInflater inflater;
     private Context context;
-    private ListBean<MateNoteBo> data;
-    private List<MateNoteBo> adapter;
+    private List<MateNoteBo> data = new ArrayList<>();
 
     public TogetherAdapter(Context context) {
         this.context = context;
@@ -41,17 +41,22 @@ public class TogetherAdapter extends RecyclerView.Adapter<TogetherAdapter.ViewHo
     @Override
     public void onBindViewHolder(TogetherAdapter.ViewHolder holder, int position) {
         ItemTravelTogetherBinding binding = DataBindingUtil.getBinding(holder.itemView);
+        binding.recordTitle.setText(data.get(position).getTitle());
+        binding.recordContent.setText(data.get(position).getContent());
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return data.size();
     }
 
-    public void setData(ListBean<MateNoteBo> data) {
+    public void setData(List<MateNoteBo> data) {
         this.data = data;
-        adapter = this.data.data;
         notifyDataSetChanged();
+    }
+
+    public List<MateNoteBo> getData() {
+        return data;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

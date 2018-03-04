@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 
 import com.handarui.baselib.net.RetrofitFactory;
 import com.handarui.baselib.util.RequestBeanMaker;
@@ -23,7 +24,10 @@ import travel.nanjing.com.travel.databinding.ActivityFriendsBinding;
 
 public class FriendsActivity extends BaseVMActivity<FriendsActivity, FriendsViewModel> {
 
+    private static final String TAG = "FriendsActivity";
+
     private ActivityFriendsBinding binding;
+
     private String type;
 
     @Override
@@ -36,6 +40,7 @@ public class FriendsActivity extends BaseVMActivity<FriendsActivity, FriendsView
         binding.setViewModel(this.viewModel);
 
         binding.friendRv.setLayoutManager(new LinearLayoutManager(this));
+
         if ("funs".equals(type)) {
             FunsAdapter adapter = new FunsAdapter(this);
             adapter.onclick = new FunsAdapter.Onclick() {
@@ -72,7 +77,7 @@ public class FriendsActivity extends BaseVMActivity<FriendsActivity, FriendsView
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
-
+                Log.e(TAG, "accept: "+throwable.getMessage());
             }
         });
     }
@@ -90,7 +95,7 @@ public class FriendsActivity extends BaseVMActivity<FriendsActivity, FriendsView
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
-
+                Log.e(TAG, "accept: "+throwable.getMessage());
             }
         });
     }

@@ -60,7 +60,10 @@ public class TogetherFragment extends BaseVMFragment<TogetherFragment, TogetherV
         adapter.onclick = new TogetherAdapter.Onclick() {
             @Override
             public void onItemClick(int position) {
-                startActivity(new Intent(getContext(), TogetherDetailActivity.class));
+                Intent intent = new Intent(getContext(), TogetherDetailActivity.class);
+                intent.putExtra("userId", adapter.getData().get(position).getId());
+                intent.putExtra("recordId", adapter.getData().get(position).getId());
+                startActivity(intent);
             }
         };
         dataBinding.togetherRv.setAdapter(adapter);
@@ -90,7 +93,7 @@ public class TogetherFragment extends BaseVMFragment<TogetherFragment, TogetherV
                 .subscribe(new Consumer<ListBean<MateNoteBo>>() {
                     @Override
                     public void accept(ListBean<MateNoteBo> mateNoteBoListBean) throws Exception {
-                        adapter.setData(mateNoteBoListBean);
+                        adapter.setData(mateNoteBoListBean.data);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -115,7 +118,7 @@ public class TogetherFragment extends BaseVMFragment<TogetherFragment, TogetherV
                 .subscribe(new Consumer<ListBean<MateNoteBo>>() {
                     @Override
                     public void accept(ListBean<MateNoteBo> mateNoteBoListBean) throws Exception {
-                        adapter.setData(mateNoteBoListBean);
+                        adapter.setData(mateNoteBoListBean.data);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

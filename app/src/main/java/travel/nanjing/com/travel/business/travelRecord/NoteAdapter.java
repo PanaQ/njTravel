@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import travel.nanjing.com.travel.R;
@@ -21,7 +22,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
     private Context context;
-    private List<NoteCommentBo> data;
+    private List<NoteCommentBo> data = new ArrayList<>();
 
     public NoteAdapter(Context context) {
         this.context = context;
@@ -37,11 +38,13 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(NoteAdapter.ViewHolder holder, int position) {
         ItemTravelNoteBinding binding = DataBindingUtil.getBinding(holder.itemView);
+        binding.no.setText(position + "楼");
+        binding.note.setText(data.get(position).getComment());
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return data.size();
     }
 
     public void setData(List<NoteCommentBo> data) {

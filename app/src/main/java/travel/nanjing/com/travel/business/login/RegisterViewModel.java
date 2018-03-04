@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.handarui.baselib.net.RetrofitFactory;
+import com.handarui.baselib.util.AESEncryptUtil;
 import com.handarui.baselib.util.RequestBeanMaker;
 import com.handarui.baselib.util.RxUtil;
 import com.handarui.iqfun.business.base.BaseViewModel;
@@ -88,7 +89,7 @@ public class RegisterViewModel extends BaseViewModel<RegisterActivity> {
         BaseUserBo param = new BaseUserBo();
         param.setName(phoneNum.get());
         param.setPhone(phoneNum.get());
-        param.setPassword(passWord.get());
+        param.setPassword(AESEncryptUtil.decrypt(passWord.get(),"TravelNote123456"));
         requestBean.setParam(param);
 
 

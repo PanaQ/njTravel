@@ -13,10 +13,16 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     dataBinding {
         enabled = true
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/INDEX.LIST'
     }
 
     buildTypes {
@@ -49,6 +55,18 @@ dependencies {
     compile 'handarui:android-base2:1.0.2-SNAPSHOT'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
+    compile ('com.garfield.travelnote:travelnote-server-api:1.0-SNAPSHOT'){
+        exclude module: 'httpclient' //by artifact name
+        exclude group: 'org.apache.httpcomponents'
+        exclude group: 'org.springframework.boot'
+        exclude group: 'org.springframework.amqp'
+        exclude group: 'commons-logging'
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+        exclude group: 'com.github.pagehelper'
+        exclude group: 'tk.mybatis'
+        exclude group: 'org.springframework.data'
+        changing = true
+    }
 }
 kapt {
     generateStubs = true

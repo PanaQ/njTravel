@@ -20,6 +20,7 @@ package travel.nanjing.com.travel
 
 import android.app.Application
 import android.content.Context
+import android.support.multidex.MultiDex
 import com.handarui.baselib.AndroidBase
 import com.handarui.baselib.net.RetrofitFactory
 import travel.nanjing.com.travel.util.Constant
@@ -51,6 +52,11 @@ class MyApplication : Application() {
 
     companion object {
         lateinit var instance: MyApplication
+    }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(base)
     }
 
 }

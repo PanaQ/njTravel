@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ public class RecordDetailActivity extends AppCompatActivity {
     private RecyclerView contentRv;
     private NoteAdapter noteAdapter;
     private ImageView attention;
+    private Button sendNote;
     private boolean isFollow;
     long userId;
 
@@ -47,6 +49,8 @@ public class RecordDetailActivity extends AppCompatActivity {
         noteRv = ((RecyclerView) findViewById(R.id.noteRv));
         contentRv = ((RecyclerView) findViewById(R.id.contentRv));
         attention = ((ImageView) findViewById(R.id.attention));
+        sendNote = ((Button) findViewById(R.id.sendNote));
+
 
         noteRv.setLayoutManager(new LinearLayoutManager(this));
         contentRv.setLayoutManager(new LinearLayoutManager(this));
@@ -74,6 +78,12 @@ public class RecordDetailActivity extends AppCompatActivity {
         if (userId != -1L) {
             getIsFollow();
         }
+
+        sendNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
     }
 
     private void getContentById(Long recordId) {

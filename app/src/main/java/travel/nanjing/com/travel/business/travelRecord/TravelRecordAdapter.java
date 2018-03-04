@@ -35,6 +35,7 @@ public class TravelRecordAdapter extends RecyclerView.Adapter<TravelRecordAdapte
 
     public void setData(ArrayList<BaseNoteBo> data) {
         this.data = data;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -47,6 +48,8 @@ public class TravelRecordAdapter extends RecyclerView.Adapter<TravelRecordAdapte
     @Override
     public void onBindViewHolder(TravelRecordAdapter.ViewHolder holder, int position) {
         ItemTravelRecordBinding binding = DataBindingUtil.getBinding(holder.itemView);
+        binding.recordContent.setText(data.get(position).getContent());
+        binding.recordTitle.setText(data.get(position).getTitle());
     }
 
     @Override

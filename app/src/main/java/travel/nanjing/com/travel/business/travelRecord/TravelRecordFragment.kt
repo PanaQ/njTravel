@@ -50,11 +50,16 @@ class TravelRecordFragment : BaseVMFragment<TravelRecordFragment, TravelRecordVi
         dataBinding.recordRv.layoutManager = LinearLayoutManager(context)
 
         adapter = TravelRecordAdapter(context)
-        adapter.onclick = TravelRecordAdapter.Onclick { startActivity(Intent(context, RecordDetailActivity::class.java)) }
+        adapter.onclick = TravelRecordAdapter.Onclick { it ->
+            var intent = Intent(context, RecordDetailActivity::class.java)
+            intent.putExtra("userId", adapter.data[it].userId)
+            intent.putExtra("recordId", adapter.data[it].id)
+            startActivity(intent)
+        }
         dataBinding.recordRv.adapter = adapter
 
         var userId = arguments?.getLong("userId")
-        if (userId != null && userId!=0L) {
+        if (userId != null && userId != 0L) {
             getContentById(userId)
             dataBinding.addRecord.visibility = View.INVISIBLE
         } else {

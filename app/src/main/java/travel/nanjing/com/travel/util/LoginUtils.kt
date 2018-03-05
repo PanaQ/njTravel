@@ -5,8 +5,8 @@ import android.content.Intent
 import android.text.TextUtils
 import com.handarui.baselib.net.TokenManager
 import travel.nanjing.com.travel.MyApplication
-import travel.nanjing.com.travel.api.bo.UserBean
-import travel.nanjing.com.travel.api.bo.UserBo
+import travel.nanjing.com.travel.R
+import travel.nanjing.com.travel.business.api.model.bo.UserBo
 import travel.nanjing.com.travel.business.login.LoginActivity
 import travel.nanjing.com.travel.util.SPUtils
 
@@ -100,5 +100,10 @@ object LoginUtils {
         TokenManager.removeToken(context)
         context.startActivity(Intent(context, LoginActivity::class.java))
         AppManager.finishActivitiesExceptLogin()
+    }
+
+    fun getAva(): String {
+        var stringArray = MyApplication.instance.resources.getStringArray(R.array.avaPic)
+        return stringArray[(Math.random() * 5).toInt()]
     }
 }

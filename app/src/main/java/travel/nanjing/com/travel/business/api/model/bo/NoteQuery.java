@@ -1,8 +1,8 @@
-package travel.nanjing.com.travel.api.bo;
+package travel.nanjing.com.travel.business.api.model.bo;
 
 import javax.validation.constraints.NotNull;
 
-public class MateNoteQuery {
+public class NoteQuery{
 
     /**
      * 用户id

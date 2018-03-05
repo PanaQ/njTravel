@@ -13,8 +13,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.handarui.baselib.exception.SuccessException;
 import com.handarui.baselib.net.RetrofitFactory;
-import com.handarui.baselib.util.AESEncryptUtil;
 import com.handarui.baselib.util.RequestBeanMaker;
 import com.handarui.baselib.util.RxUtil;
 import com.handarui.iqfun.business.base.BaseViewModel;
@@ -22,10 +22,9 @@ import com.zhexinit.ov.common.bean.RequestBean;
 
 import io.reactivex.functions.Consumer;
 import travel.nanjing.com.travel.R;
-import travel.nanjing.com.travel.api.bo.BaseUserBo;
-import travel.nanjing.com.travel.api.bo.LoginBean;
-import travel.nanjing.com.travel.api.service.UserService;
 import travel.nanjing.com.travel.business.MainActivity;
+import travel.nanjing.com.travel.business.api.model.bo.BaseUserBo;
+import travel.nanjing.com.travel.business.api.service.UserService;
 
 /**
  * Created by zx on 2018/2/22 0022.
@@ -89,11 +88,11 @@ public class RegisterViewModel extends BaseViewModel<RegisterActivity> {
         BaseUserBo param = new BaseUserBo();
         param.setName(phoneNum.get());
         param.setPhone(phoneNum.get());
-        param.setPassword(AESEncryptUtil.decrypt(passWord.get(),"TravelNote123456"));
+        param.setPassword(passWord.get());
         requestBean.setParam(param);
 
 
-         UserService service = RetrofitFactory.createRestService(UserService.class);
+        UserService service = RetrofitFactory.createRestService(UserService.class);
         RxUtil.wrapRestCall(service.register(requestBean), requestBean.getReqId()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
@@ -102,7 +101,11 @@ public class RegisterViewModel extends BaseViewModel<RegisterActivity> {
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
-                Log.i(TAG, throwable.getMessage());
+                if (throwable instanceof SuccessException) {
+                    getView().startActivity(new Intent(getView(), MainActivity.class));
+                } else {
+                    Log.i(TAG, throwable.getMessage());
+                }
             }
         });
     }

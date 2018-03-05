@@ -1,8 +1,9 @@
-package travel.nanjing.com.travel.api.bo;
+package travel.nanjing.com.travel.business.api.model.bo;
+
 
 import java.util.List;
 
-public class NoteBo extends BaseNoteBo{
+public class NoteBo extends BaseNoteBo {
 
     /**
      * 用户名

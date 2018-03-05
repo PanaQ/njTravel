@@ -16,18 +16,16 @@ import com.handarui.baselib.util.RequestBeanMaker;
 import com.handarui.baselib.util.RxUtil;
 import com.handarui.iqfun.business.base.BaseVMFragment;
 import com.zhexinit.ov.common.bean.RequestBean;
-import com.zhexinit.ov.common.query.ListBean;
-import com.zhexinit.ov.common.query.PagerQuery;
-import com.zhexinit.ov.common.query.SortPagerQuery;
+
+import java.util.List;
 
 import io.reactivex.functions.Consumer;
-import io.reactivex.internal.util.ConnectConsumer;
 import travel.nanjing.com.travel.R;
-import travel.nanjing.com.travel.api.bo.MateNoteBo;
-import travel.nanjing.com.travel.api.bo.MateNoteQuery;
-import travel.nanjing.com.travel.api.service.MateNoteService;
+import travel.nanjing.com.travel.business.api.model.bo.MateNoteBo;
+import travel.nanjing.com.travel.business.api.service.MateNoteService;
 import travel.nanjing.com.travel.business.together.addTogether.AddTogetherActivity;
 import travel.nanjing.com.travel.databinding.FragmentTogetherBinding;
+import travel.nanjing.com.travel.util.RxUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,7 +59,6 @@ public class TogetherFragment extends BaseVMFragment<TogetherFragment, TogetherV
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(getContext(), TogetherDetailActivity.class);
-                intent.putExtra("userId", adapter.getData().get(position).getId());
                 intent.putExtra("recordId", adapter.getData().get(position).getId());
                 startActivity(intent);
             }
@@ -74,10 +71,10 @@ public class TogetherFragment extends BaseVMFragment<TogetherFragment, TogetherV
             if (userId != 0) {
                 getContentById(userId);
                 dataBinding.addTogether.setVisibility(View.INVISIBLE);
-            } else {
-                getContentAll();
-                dataBinding.addTogether.setVisibility(View.VISIBLE);
             }
+        } else {
+            getContentAll();
+            dataBinding.addTogether.setVisibility(View.VISIBLE);
         }
 
         return dataBinding.getRoot();
@@ -90,10 +87,10 @@ public class TogetherFragment extends BaseVMFragment<TogetherFragment, TogetherV
 
         MateNoteService service = RetrofitFactory.createRestService(MateNoteService.class);
         RxUtil.wrapRestCall(service.getMateNoteListByUserId(requestBean), requestBean.getReqId())
-                .subscribe(new Consumer<ListBean<MateNoteBo>>() {
+                .subscribe(new Consumer<List<MateNoteBo>>() {
                     @Override
-                    public void accept(ListBean<MateNoteBo> mateNoteBoListBean) throws Exception {
-                        adapter.setData(mateNoteBoListBean.data);
+                    public void accept(List<MateNoteBo> mateNoteBos) throws Exception {
+                        adapter.setData(mateNoteBos);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -112,13 +109,12 @@ public class TogetherFragment extends BaseVMFragment<TogetherFragment, TogetherV
         RequestBean<Long> requestBean = RequestBeanMaker.getRequestBean();
         requestBean.setParam(-1L);
 
-
         MateNoteService service = RetrofitFactory.createRestService(MateNoteService.class);
-        RxUtil.wrapRestCall(service.getMateNoteList(requestBean), requestBean.getReqId())
-                .subscribe(new Consumer<ListBean<MateNoteBo>>() {
+        RxUtils.wrapRestCall(service.getMateNoteList())
+                .subscribe(new Consumer<List<MateNoteBo>>() {
                     @Override
-                    public void accept(ListBean<MateNoteBo> mateNoteBoListBean) throws Exception {
-                        adapter.setData(mateNoteBoListBean.data);
+                    public void accept(List<MateNoteBo> mateNoteBos) throws Exception {
+                        adapter.setData(mateNoteBos);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

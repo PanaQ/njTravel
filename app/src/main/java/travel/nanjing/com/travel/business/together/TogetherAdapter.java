@@ -7,13 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zhexinit.ov.common.query.ListBean;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import travel.nanjing.com.travel.R;
-import travel.nanjing.com.travel.api.bo.MateNoteBo;
+import travel.nanjing.com.travel.business.api.model.bo.MateNoteBo;
 import travel.nanjing.com.travel.databinding.ItemTravelTogetherBinding;
 
 /**
@@ -32,17 +30,16 @@ public class TogetherAdapter extends RecyclerView.Adapter<TogetherAdapter.ViewHo
     }
 
     @Override
-    public TogetherAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View root = DataBindingUtil.inflate(inflater, R.layout.item_travel_together, parent, false).getRoot();
-
         return new ViewHolder(root);
     }
 
     @Override
-    public void onBindViewHolder(TogetherAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         ItemTravelTogetherBinding binding = DataBindingUtil.getBinding(holder.itemView);
-        binding.recordTitle.setText(data.get(position).getTitle());
         binding.recordContent.setText(data.get(position).getContent());
+        binding.recordTitle.setText(data.get(position).getTitle());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package travel.nanjing.com.travel.api.service;
+package travel.nanjing.com.travel.business.api.service;
 
 import com.zhexinit.ov.common.bean.RequestBean;
 import com.zhexinit.ov.common.bean.ResponseBean;
@@ -6,7 +6,7 @@ import com.zhexinit.ov.common.bean.ResponseBean;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
-import travel.nanjing.com.travel.api.bo.AddNoteCommentBo;
+import travel.nanjing.com.travel.business.api.model.bo.AddNoteCommentBo;
 
 public interface NoteCommentService {
 

@@ -1,21 +1,20 @@
-package travel.nanjing.com.travel.api.service;
+package travel.nanjing.com.travel.business.api.service;
 
 import com.zhexinit.ov.common.bean.RequestBean;
 import com.zhexinit.ov.common.bean.ResponseBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import travel.nanjing.com.travel.api.bo.DivisionBo;
-
-import java.util.List;
+import travel.nanjing.com.travel.business.api.model.bo.DivisionBo;
 
 public interface DevisionService {
 
     /**
      * 查询省份列表
-     *
      * @param param
      * @return
      */
@@ -24,7 +23,6 @@ public interface DevisionService {
 
     /**
      * 查询省市区
-     *
      * @param parentCode
      * @return
      */
@@ -33,7 +31,6 @@ public interface DevisionService {
 
     /**
      * 查询
-     *
      * @param code
      * @return
      */

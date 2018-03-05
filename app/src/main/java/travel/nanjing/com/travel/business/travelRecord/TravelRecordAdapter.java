@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.handarui.iqfun.util.LoginUtils;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import travel.nanjing.com.travel.R;
-import travel.nanjing.com.travel.api.bo.BaseNoteBo;
-import travel.nanjing.com.travel.api.bo.NoteBo;
+import travel.nanjing.com.travel.business.api.model.bo.BaseNoteBo;
 import travel.nanjing.com.travel.databinding.ItemTravelRecordBinding;
 
 /**
@@ -39,17 +41,18 @@ public class TravelRecordAdapter extends RecyclerView.Adapter<TravelRecordAdapte
     }
 
     @Override
-    public TravelRecordAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View root = DataBindingUtil.inflate(inflater, R.layout.item_travel_record, parent, false).getRoot();
 
         return new ViewHolder(root);
     }
 
     @Override
-    public void onBindViewHolder(TravelRecordAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         ItemTravelRecordBinding binding = DataBindingUtil.getBinding(holder.itemView);
         binding.recordContent.setText(data.get(position).getContent());
         binding.recordTitle.setText(data.get(position).getTitle());
+        Picasso.with(context).load(LoginUtils.INSTANCE.getAva()).into(binding.imageView);
     }
 
     @Override

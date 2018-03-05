@@ -7,10 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.handarui.iqfun.util.LoginUtils;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import travel.nanjing.com.travel.R;
-import travel.nanjing.com.travel.api.bo.AttentionBo;
+import travel.nanjing.com.travel.business.api.model.bo.AttentionBo;
 import travel.nanjing.com.travel.databinding.ItemAttentionsBinding;
 
 /**
@@ -21,7 +25,7 @@ public class FunsAdapter extends RecyclerView.Adapter<FunsAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
     private Context context;
-    private List<AttentionBo> data;
+    private List<AttentionBo> data = new ArrayList<>();
 
     public FunsAdapter(Context context) {
         this.context = context;
@@ -29,27 +33,33 @@ public class FunsAdapter extends RecyclerView.Adapter<FunsAdapter.ViewHolder> {
     }
 
     @Override
-    public FunsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View root = DataBindingUtil.inflate(inflater, R.layout.item_attentions, parent, false).getRoot();
 
         return new ViewHolder(root);
     }
 
     @Override
-    public void onBindViewHolder(FunsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         ItemAttentionsBinding binding = DataBindingUtil.getBinding(holder.itemView);
         binding.attention.setVisibility(View.INVISIBLE);
+        binding.name.setText(data.get(position).getName());
+        Picasso.with(context).load(LoginUtils.INSTANCE.getAva()).into(binding.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return data.size();
     }
 
     public void setData(List<AttentionBo> data) {
         this.data = data;
+        notifyDataSetChanged();
     }
 
+    public List<AttentionBo> getData() {
+        return data;
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(View itemView) {

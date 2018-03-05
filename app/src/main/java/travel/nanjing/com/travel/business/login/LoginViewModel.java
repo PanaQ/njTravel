@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.handarui.baselib.exception.SuccessException;
 import com.handarui.baselib.net.RetrofitFactory;
 import com.handarui.baselib.util.RequestBeanMaker;
 import com.handarui.baselib.util.RxUtil;
@@ -15,10 +16,10 @@ import com.handarui.iqfun.util.LoginUtils;
 import com.zhexinit.ov.common.bean.RequestBean;
 
 import io.reactivex.functions.Consumer;
-import travel.nanjing.com.travel.api.bo.LoginBean;
-import travel.nanjing.com.travel.api.bo.UserBo;
-import travel.nanjing.com.travel.api.service.UserService;
 import travel.nanjing.com.travel.business.MainActivity;
+import travel.nanjing.com.travel.business.api.model.bo.LoginBean;
+import travel.nanjing.com.travel.business.api.model.bo.UserBo;
+import travel.nanjing.com.travel.business.api.service.UserService;
 
 /**
  * Created by zx on 2018/2/22 0022.
@@ -59,12 +60,18 @@ public class LoginViewModel extends BaseViewModel<LoginActivity> {
                 .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(Object o) throws Exception {
-                        getUserInfo();
+//                        getUserInfo();
+                        getView().startActivity(new Intent(getView(), MainActivity.class));
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Log.e(TAG, "accept: request" + throwable.getMessage());
+                        if (throwable instanceof SuccessException) {
+//                            getUserInfo();
+                            getView().startActivity(new Intent(getView(), MainActivity.class));
+                        } else {
+                            Log.e(TAG, "accept: request" + throwable.getMessage());
+                        }
                     }
                 });
     }

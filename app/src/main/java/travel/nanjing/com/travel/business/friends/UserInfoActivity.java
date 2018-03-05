@@ -17,16 +17,23 @@ import travel.nanjing.com.travel.databinding.ActivityUserinfoBinding;
 public class UserInfoActivity extends BaseVMActivity<UserInfoActivity, UserViewModel> {
 
     private ActivityUserinfoBinding binding;
+    private long id;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_userinfo);
-        binding.name.setText("Asd");
-        binding.viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
-        binding.tabLayout.setupWithViewPager(binding.viewPager);
 
         String type = getIntent().getStringExtra("type");
+        id = getIntent().getLongExtra("id", -1);
+        name = getIntent().getStringExtra("name");
+
+        binding.name.setText(name);
+        binding.viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager(), id));
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
+
+
         if (type.equals("me")) {
             binding.setting.setVisibility(View.VISIBLE);
         } else {
@@ -48,11 +55,11 @@ class PagerAdapter extends FragmentPagerAdapter {
     private final TogetherFragment togetherFragment = new TogetherFragment();
     Fragment[] fragments = new Fragment[2];
 
-    public PagerAdapter(FragmentManager fm) {
+    public PagerAdapter(FragmentManager fm, Long userId) {
         super(fm);
         Bundle args = new Bundle();
 
-        args.putLong("userId", 0);
+        args.putLong("userId", userId);
 
         travelRecordFragment.setArguments(args);
         togetherFragment.setArguments(args);

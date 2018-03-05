@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import travel.nanjing.com.travel.R;
-import travel.nanjing.com.travel.api.bo.NoteCommentBo;
+import travel.nanjing.com.travel.business.api.model.bo.NoteCommentBo;
 import travel.nanjing.com.travel.databinding.ItemTravelNoteBinding;
 
 /**
@@ -30,13 +30,13 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     }
 
     @Override
-    public NoteAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View root = DataBindingUtil.inflate(inflater, R.layout.item_travel_note, parent, false).getRoot();
         return new ViewHolder(root);
     }
 
     @Override
-    public void onBindViewHolder(NoteAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         ItemTravelNoteBinding binding = DataBindingUtil.getBinding(holder.itemView);
         binding.no.setText(position + "楼");
         binding.note.setText(data.get(position).getComment());

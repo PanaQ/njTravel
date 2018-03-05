@@ -1,6 +1,7 @@
-package travel.nanjing.com.travel.api.bo;
+package travel.nanjing.com.travel.business.api.model.bo;
 
 
+import javax.validation.constraints.Pattern;
 
 public class BaseUserBo {
     /**
@@ -11,6 +12,7 @@ public class BaseUserBo {
     /**
      * 手机号
      */
+    @Pattern(regexp = "^[1][34578][0-9]{9}$")
     private String phone;
 
     /**
@@ -21,7 +23,7 @@ public class BaseUserBo {
 //     * 确定密码
 //     */
 //    @NotEmpty(message = "确认密码不能为空")
-    private String confirmPassword;
+//    private String confirmPassword;
 
     public String getName() {
         return name;

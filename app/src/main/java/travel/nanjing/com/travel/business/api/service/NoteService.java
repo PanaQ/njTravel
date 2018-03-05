@@ -1,9 +1,9 @@
-package travel.nanjing.com.travel.api.service;
+package travel.nanjing.com.travel.business.api.service;
 
 import com.zhexinit.ov.common.bean.RequestBean;
 import com.zhexinit.ov.common.bean.ResponseBean;
-import com.zhexinit.ov.common.query.ListBean;
-import com.zhexinit.ov.common.query.SortPagerQuery;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -11,10 +11,9 @@ import retrofit2.http.Body;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import travel.nanjing.com.travel.api.bo.BaseNoteBo;
-import travel.nanjing.com.travel.api.bo.NoteBo;
-import travel.nanjing.com.travel.api.bo.NoteQuery;
-import travel.nanjing.com.travel.api.helper.HTTPS;
+import travel.nanjing.com.travel.business.api.helper.HTTPS;
+import travel.nanjing.com.travel.business.api.model.bo.BaseNoteBo;
+import travel.nanjing.com.travel.business.api.model.bo.NoteBo;
 
 @HTTPS
 public interface NoteService {
@@ -43,18 +42,18 @@ public interface NoteService {
      * 根据userId获取游记列表(获取别人的)
      */
     @POST("/note/getNoteListByUserId")
-    Observable<ResponseBean<ListBean<BaseNoteBo>>> getNoteListByUserId(@Body RequestBean<SortPagerQuery<NoteQuery>> requestBean);
+    Observable<ResponseBean<List<BaseNoteBo>>> getNoteListByUserId(@Body RequestBean<Long> requestBean);
 
     /**
      * 获取自己的所有游记列表
      */
     @POST("/note/getNoteListByMine")
-    Observable<ResponseBean<ListBean<BaseNoteBo>>> getNoteListByMine(@Body RequestBean<Long> requestBean);
+    Observable<ResponseBean<List<BaseNoteBo>>> getNoteListByMine();
 
     /**
      * 获取所有的游记列表
      */
     @POST("/note/getNoteList")
-    Observable<ResponseBean<ListBean<BaseNoteBo>>> getNoteList(@Body RequestBean<Long> requestBean);
+    Observable<ResponseBean<List<BaseNoteBo>>> getNoteList();
 
 }

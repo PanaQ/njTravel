@@ -1,4 +1,4 @@
-package travel.nanjing.com.travel.api.bo;
+package travel.nanjing.com.travel.business.api.model.bo;
 
 
 public class NoteCommentBo {

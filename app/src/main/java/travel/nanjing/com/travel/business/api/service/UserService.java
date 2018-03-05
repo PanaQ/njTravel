@@ -1,4 +1,4 @@
-package travel.nanjing.com.travel.api.service;
+package travel.nanjing.com.travel.business.api.service;
 
 import com.zhexinit.ov.common.bean.RequestBean;
 import com.zhexinit.ov.common.bean.ResponseBean;
@@ -7,10 +7,10 @@ import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import travel.nanjing.com.travel.api.bo.BaseUserBo;
-import travel.nanjing.com.travel.api.bo.LoginBean;
-import travel.nanjing.com.travel.api.bo.UserBo;
-import travel.nanjing.com.travel.api.helper.HTTPS;
+import travel.nanjing.com.travel.business.api.helper.HTTPS;
+import travel.nanjing.com.travel.business.api.model.bo.BaseUserBo;
+import travel.nanjing.com.travel.business.api.model.bo.LoginBean;
+import travel.nanjing.com.travel.business.api.model.bo.UserBo;
 
 @HTTPS
 public interface UserService {

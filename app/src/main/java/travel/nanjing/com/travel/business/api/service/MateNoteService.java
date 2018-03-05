@@ -1,18 +1,16 @@
-package travel.nanjing.com.travel.api.service;
+package travel.nanjing.com.travel.business.api.service;
 
 import com.zhexinit.ov.common.bean.RequestBean;
 import com.zhexinit.ov.common.bean.ResponseBean;
-import com.zhexinit.ov.common.query.ListBean;
-import com.zhexinit.ov.common.query.PagerQuery;
-import com.zhexinit.ov.common.query.SortPagerQuery;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
-import travel.nanjing.com.travel.api.bo.AddMateNoteBo;
-import travel.nanjing.com.travel.api.bo.MateNoteBo;
-import travel.nanjing.com.travel.api.bo.MateNoteQuery;
-import travel.nanjing.com.travel.api.helper.HTTPS;
+import travel.nanjing.com.travel.business.api.helper.HTTPS;
+import travel.nanjing.com.travel.business.api.model.bo.AddMateNoteBo;
+import travel.nanjing.com.travel.business.api.model.bo.MateNoteBo;
 
 @HTTPS
 public interface MateNoteService {
@@ -33,18 +31,18 @@ public interface MateNoteService {
      * 根据userId获取结伴游列表(获取别人的)
      */
     @POST("/mateNote/getMateNoteListByUserId")
-    Observable<ResponseBean<ListBean<MateNoteBo>>> getMateNoteListByUserId(@Body RequestBean<Long> requestBean);
+    Observable<ResponseBean<List<MateNoteBo>>> getMateNoteListByUserId(@Body RequestBean<Long> requestBean);
 
     /**
      * 获取自己的所有结伴游列表
      */
     @POST("/mateNote/getNoteListByMine")
-    Observable<ResponseBean<ListBean<MateNoteBo>>> getMateNoteListByMine(@Body RequestBean<SortPagerQuery> requestBean);
+    Observable<ResponseBean<List<MateNoteBo>>> getMateNoteListByMine();
 
     /**
      * 获取所有的结伴游列表
      */
     @POST("/mateNote/getMateNoteList")
-    Observable<ResponseBean<ListBean<MateNoteBo>>> getMateNoteList(@Body RequestBean<Long> requestBean);
+    Observable<ResponseBean<List<MateNoteBo>>> getMateNoteList();
 
 }

@@ -7,10 +7,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.handarui.baselib.exception.SuccessException;
 import com.handarui.baselib.net.RetrofitFactory;
 import com.handarui.baselib.util.RequestBeanMaker;
 import com.handarui.baselib.util.RxUtil;
+import com.handarui.iqfun.util.LoginUtils;
+import com.squareup.picasso.Picasso;
 import com.zhexinit.ov.common.bean.RequestBean;
 
 import java.util.ArrayList;
@@ -18,9 +22,9 @@ import java.util.List;
 
 import io.reactivex.functions.Consumer;
 import travel.nanjing.com.travel.R;
-import travel.nanjing.com.travel.api.bo.AttentionBo;
-import travel.nanjing.com.travel.api.bo.MateNoteBo;
-import travel.nanjing.com.travel.api.service.FollowService;
+import travel.nanjing.com.travel.business.api.model.bo.AttentionBo;
+import travel.nanjing.com.travel.business.api.model.bo.MateNoteBo;
+import travel.nanjing.com.travel.business.api.service.FollowService;
 import travel.nanjing.com.travel.databinding.ItemAttentionsBinding;
 
 /**
@@ -39,18 +43,20 @@ public class AttentionsAdapter extends RecyclerView.Adapter<AttentionsAdapter.Vi
     }
 
     @Override
-    public AttentionsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View root = DataBindingUtil.inflate(inflater, R.layout.item_attentions, parent, false).getRoot();
 
         return new ViewHolder(root);
     }
 
     @Override
-    public void onBindViewHolder(AttentionsAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         ItemAttentionsBinding binding = DataBindingUtil.getBinding(holder.itemView);
-        binding.imageView.setOnClickListener(new View.OnClickListener() {
+        binding.name.setText(data.get(position).getName());
+        Picasso.with(context).load(LoginUtils.INSTANCE.getAva()).into(binding.imageView);
+        binding.attention.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 RequestBean<Long> requestBean = RequestBeanMaker.getRequestBean();
                 requestBean.setParam(data.get(position).getId());
 
@@ -58,13 +64,16 @@ public class AttentionsAdapter extends RecyclerView.Adapter<AttentionsAdapter.Vi
                 RxUtil.wrapRestCall(restService.cancelFollow(requestBean), requestBean.getReqId()).subscribe(new Consumer<MateNoteBo>() {
                     @Override
                     public void accept(MateNoteBo mateNoteBo) throws Exception {
-                        data.remove(data.get(position));
-                        notifyDataSetChanged();
+                        Toast.makeText(context, "取消关注成功", Toast.LENGTH_LONG).show();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        if (throwable instanceof SuccessException) {
+                            Toast.makeText(context, "取消关注成功", Toast.LENGTH_LONG).show();
+                        }
                         Log.e(TAG, "accept: " + throwable.getMessage());
+                        Toast.makeText(context, "取消关注失败", Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -76,6 +85,10 @@ public class AttentionsAdapter extends RecyclerView.Adapter<AttentionsAdapter.Vi
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public List<AttentionBo> getData() {
+        return data;
     }
 
     public void setData(List<AttentionBo> data) {

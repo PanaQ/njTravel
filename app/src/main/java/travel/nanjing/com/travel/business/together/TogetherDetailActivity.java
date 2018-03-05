@@ -13,8 +13,8 @@ import com.zhexinit.ov.common.bean.RequestBean;
 
 import io.reactivex.functions.Consumer;
 import travel.nanjing.com.travel.R;
-import travel.nanjing.com.travel.api.bo.MateNoteBo;
-import travel.nanjing.com.travel.api.service.MateNoteService;
+import travel.nanjing.com.travel.business.api.model.bo.MateNoteBo;
+import travel.nanjing.com.travel.business.api.service.MateNoteService;
 import travel.nanjing.com.travel.databinding.ActivityTogetherDetailBinding;
 
 public class TogetherDetailActivity extends BaseVMActivity<TogetherDetailActivity, TogetherDetailViewModel> {

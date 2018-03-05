@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +17,6 @@ import com.handarui.baselib.net.RetrofitFactory;
 import com.handarui.baselib.util.RequestBeanMaker;
 import com.handarui.baselib.util.RxUtil;
 import com.handarui.iqfun.util.LoginUtils;
-import com.squareup.picasso.Picasso;
 import com.yanzhenjie.recyclerview.swipe.Closeable;
 import com.yanzhenjie.recyclerview.swipe.OnSwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
@@ -33,43 +31,43 @@ import java.util.List;
 
 import io.reactivex.functions.Consumer;
 import travel.nanjing.com.travel.R;
-import travel.nanjing.com.travel.business.api.model.bo.BaseNoteBo;
-import travel.nanjing.com.travel.business.api.service.NoteService;
+import travel.nanjing.com.travel.business.api.model.bo.MateNoteBo;
+import travel.nanjing.com.travel.business.api.service.MateNoteService;
 import travel.nanjing.com.travel.util.RxUtils;
 
-public class DealMyRecordActivity extends AppCompatActivity {
+public class DealMyTogetherActivity extends AppCompatActivity {
 
     private static final String TAG = "DealMyRecordActivity";
 
-    private MenuAdapter adapter;
+    private MenuAdapters adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deal_my_record);
         SwipeMenuRecyclerView swipeMenuRecyclerView = findViewById(R.id.recycler_view);
-// 设置菜单创建器。
+        // 设置菜单创建器。
         swipeMenuRecyclerView.setHasFixedSize(true);
         swipeMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         swipeMenuRecyclerView.setSwipeMenuCreator(swipeMenuCreator);
-// 设置菜单Item点击监听。
+        // 设置菜单Item点击监听。
         swipeMenuRecyclerView.setSwipeMenuItemClickListener(new OnSwipeMenuItemClickListener() {
             @Override
             public void onItemClick(Closeable closeable, int adapterPosition, int menuPosition, int direction) {
                 deletRecord(adapter.getData().get(adapterPosition));
             }
         });
-        adapter = new MenuAdapter(this);
+        adapter = new MenuAdapters(this);
         swipeMenuRecyclerView.setAdapter(adapter);
         requestMyRecord();
     }
 
-    private void deletRecord(BaseNoteBo data) {
+    private void deletRecord(MateNoteBo data) {
         final RequestBean<Long> requestBean = RequestBeanMaker.getRequestBean();
         requestBean.setParam(data.getId());
 
-        RxUtil.wrapRestCall(RetrofitFactory.createRestService(NoteService.class)
-                .deleteNote(requestBean), requestBean.getReqId())
+        RxUtil.wrapRestCall(RetrofitFactory.createRestService(MateNoteService.class)
+                .deleteMateNote(requestBean), requestBean.getReqId())
                 .subscribe(new Consumer<Void>() {
                     @Override
                     public void accept(Void aVoid) throws Exception {
@@ -81,8 +79,7 @@ public class DealMyRecordActivity extends AppCompatActivity {
                         if (throwable instanceof SuccessException) {
                             requestMyRecord();
                         } else {
-                            Log.e(TAG, "accept:getUserInfo " + throwable.getMessage());
-                            Toast.makeText(DealMyRecordActivity.this, "删除失败", Toast.LENGTH_LONG).show();
+                            Toast.makeText(DealMyTogetherActivity.this, "删除失败", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -92,12 +89,12 @@ public class DealMyRecordActivity extends AppCompatActivity {
         RequestBean<Long> requestBean = RequestBeanMaker.getRequestBean();
         requestBean.setParam(LoginUtils.INSTANCE.getId());
 
-        RxUtils.wrapRestCall(RetrofitFactory.createRestService(NoteService.class)
-                .getNoteListByMine())
-                .subscribe(new Consumer<List<BaseNoteBo>>() {
+        RxUtils.wrapRestCall(RetrofitFactory.createRestService(MateNoteService.class)
+                .getMateNoteListByMine())
+                .subscribe(new Consumer<List<MateNoteBo>>() {
                     @Override
-                    public void accept(List<BaseNoteBo> baseNoteBos) throws Exception {
-                        adapter.setData(baseNoteBos);
+                    public void accept(List<MateNoteBo> mateNoteBos) throws Exception {
+                        adapter.setData(mateNoteBos);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -126,16 +123,16 @@ public class DealMyRecordActivity extends AppCompatActivity {
     };
 }
 
-class MenuAdapter extends SwipeMenuAdapter<MenuAdapter.DefaultViewHolder> {
+class MenuAdapters extends SwipeMenuAdapter<MenuAdapters.DefaultViewHolder> {
 
     Context context;
-    private List<BaseNoteBo> data = new ArrayList<>();
+    private List<MateNoteBo> data = new ArrayList<>();
 
-    public MenuAdapter(Context context) {
+    public MenuAdapters(Context context) {
         this.context = context;
     }
 
-    public List<BaseNoteBo> getData() {
+    public List<MateNoteBo> getData() {
         return data;
     }
 
@@ -158,23 +155,20 @@ class MenuAdapter extends SwipeMenuAdapter<MenuAdapter.DefaultViewHolder> {
     public void onBindViewHolder(DefaultViewHolder holder, int position) {
         holder.content.setText(data.get(position).getContent());
         holder.title.setText(data.get(position).getTitle());
-        Picasso.with(context).load(LoginUtils.INSTANCE.getAva()).into(holder.imageView);
     }
 
-    public void setData(List<BaseNoteBo> data) {
+    public void setData(List<MateNoteBo> data) {
         this.data = data;
         notifyDataSetChanged();
     }
 
     public class DefaultViewHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView imageView;
         private final TextView content;
         private final TextView title;
 
         public DefaultViewHolder(View itemView) {
             super(itemView);
-            imageView = ((ImageView) itemView.findViewById(R.id.imageView));
             content = ((TextView) itemView.findViewById(R.id.recordContent));
             title = ((TextView) itemView.findViewById(R.id.recordTitle));
         }

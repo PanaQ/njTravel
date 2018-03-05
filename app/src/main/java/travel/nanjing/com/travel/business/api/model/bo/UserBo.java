@@ -1,21 +1,48 @@
-package travel.nanjing.com.travel.api.bo;
+package travel.nanjing.com.travel.business.api.model.bo;
 
-public class UserBean {
+public class UserBo {
 
     private Long id;
 
+    /**
+     * 登录名
+     */
     private String name;
 
+    /**
+     * 用户性别；0：男 ；1 ： 女
+     */
     private Integer gender;
 
+    /**
+     * 用户头像
+     */
     private String avatar;
 
+    /**
+     * 用户偏好
+     */
     private String favourite;
 
+    /**
+     * 邮箱
+     */
     private String email;
 
+    /**
+     * 手机号
+     */
     private String phone;
 
+    /**
+     * 密码
+     */
+    private String password;
+
+
+    /**
+     * 角色id
+     */
     private Long roleId;
 
     public Long getId() {
@@ -72,6 +99,14 @@ public class UserBean {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getRoleId() {

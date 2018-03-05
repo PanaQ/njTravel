@@ -7,7 +7,7 @@ package travel.nanjing.com.travel.util;
 public class Constant {
     public final static String UNIT = "Rp.";
 
-    public static String SERVER_ADDRESS = "http://192.168.30.185:8080";
+    public static String SERVER_ADDRESS = "http://192.168.31.22:8080";
 
     public final static long DISPLAY_TIME = 15 * 1000;
 

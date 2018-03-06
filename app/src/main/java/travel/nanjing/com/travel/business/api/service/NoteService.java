@@ -23,11 +23,11 @@ public interface NoteService {
 
     @Multipart
     @POST("/note/uploadPicture")
-    Observable<ResponseBean<Void>> uploadPicture(@Part("picture") MultipartBody.Part file);
+    Observable<ResponseBean<String>> uploadPicture(@Part("picture") MultipartBody.Part file);
 
     @Multipart
     @POST("/note/uploadVideo")
-    Observable<ResponseBean<Void>> uploadVideo(@Part("video") MultipartBody.Part file);
+    Observable<ResponseBean<String>> uploadVideo(@Part("video") MultipartBody.Part file);
 
     @POST("/note/deleteNote")
     Observable<ResponseBean<Void>> deleteNote(@Body RequestBean<Long> requestBean);

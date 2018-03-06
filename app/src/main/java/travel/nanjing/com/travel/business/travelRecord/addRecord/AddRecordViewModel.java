@@ -31,6 +31,7 @@ public class AddRecordViewModel extends BaseViewModel<AddRecordActivity> {
     }
 
     public void addRecord(View view) {
+
         RequestBean<BaseNoteBo> requestBean = RequestBeanMaker.getRequestBean();
         BaseNoteBo param = new BaseNoteBo();
         param.setTitle(this.getView().binding.title.getText().toString());
@@ -47,15 +48,43 @@ public class AddRecordViewModel extends BaseViewModel<AddRecordActivity> {
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
-                    if (throwable instanceof SuccessException){
-                        getView().finish();
-                        Toast.makeText(getView(),"发布成功",Toast.LENGTH_LONG).show();
-                    }else {
-                        Log.i(TAG, "accept: "+throwable.getMessage());
-                    }
+                if (throwable instanceof SuccessException){
+                    getView().finish();
+                    Toast.makeText(getView(),"发布成功",Toast.LENGTH_LONG).show();
+                }else {
+                    Log.i(TAG, "accept: "+throwable.getMessage());
+                }
             }
         });
     }
+
+    public void addRecord(String[] strings){
+        RequestBean<BaseNoteBo> requestBean = RequestBeanMaker.getRequestBean();
+        BaseNoteBo param = new BaseNoteBo();
+        param.setTitle(this.getView().binding.title.getText().toString());
+        param.setContent(this.getView().binding.content.getText().toString());
+        requestBean.setParam(param);
+        NoteService restService = RetrofitFactory.createRestService(NoteService.class);
+        RxUtil.wrapRestCall(restService.addNote(requestBean),
+                requestBean.getReqId()).subscribe(new Consumer<Void>() {
+            @Override
+            public void accept(Void aVoid) throws Exception {
+                getView().finish();
+                Toast.makeText(getView(),"发布成功",Toast.LENGTH_LONG).show();
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                if (throwable instanceof SuccessException){
+                    getView().finish();
+                    Toast.makeText(getView(),"发布成功",Toast.LENGTH_LONG).show();
+                }else {
+                    Log.i(TAG, "accept: "+throwable.getMessage());
+                }
+            }
+        });
+    }
+
 
     public void addPicture(View view) {
         clickView = (ImageView) view;

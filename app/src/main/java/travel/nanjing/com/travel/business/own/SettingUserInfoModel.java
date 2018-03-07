@@ -83,6 +83,7 @@ public class SettingUserInfoModel extends BaseViewModel<SettingUserInfoActivity>
         final UserBo param = new UserBo();
         param.setPhone(useCount.get());
         param.setEmail(userName.get());
+        param.setId(LoginUtils.INSTANCE.getId());
         param.setAvatar(s);
         requestBean.setParam(param);
 

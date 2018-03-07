@@ -1,7 +1,6 @@
 <layout>
 
     <data>
-
         <variable
             name="viewModel"
             type="travel.nanjing.com.travel.business.login.LoginViewModel" />

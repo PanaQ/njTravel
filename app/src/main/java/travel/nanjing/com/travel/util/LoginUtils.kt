@@ -38,12 +38,12 @@ object LoginUtils {
             SPUtils.putString(MyApplication.instance, "inviteCode", value)
         }
 
-    var isInvited: kotlin.Int
+    var sex: kotlin.Int
         get() {
-            return SPUtils.getInt(MyApplication.instance, "isInvited")
+            return SPUtils.getInt(MyApplication.instance, "sex")
         }
         set(value) {
-            SPUtils.putInt(MyApplication.instance, "isInvited", value)
+            SPUtils.putInt(MyApplication.instance, "sex", value)
         }
 
     var name: kotlin.String?
@@ -70,19 +70,19 @@ object LoginUtils {
             SPUtils.putLong(MyApplication.instance, "revivalCardNum", value)
         }
 
-    var totalEarning: kotlin.Float?
+    var email: kotlin.String?
         get() {
-            return SPUtils.getFloat(MyApplication.instance, "totalEarning")
+            return SPUtils.getString(MyApplication.instance, "email")
         }
         set(value) {
-            SPUtils.putFloat(MyApplication.instance, "totalEarning", value!!)
+            SPUtils.putString(MyApplication.instance, "email", value!!)
         }
-    var ranking: kotlin.String?
+    var phoneNum: kotlin.String?
         get() {
-            return SPUtils.getString(MyApplication.instance, "ranking")
+            return SPUtils.getString(MyApplication.instance, "phoneNum")
         }
         set(value) {
-            SPUtils.putString(MyApplication.instance, "ranking", value!!)
+            SPUtils.putString(MyApplication.instance, "phoneNum", value!!)
         }
 
 
@@ -94,6 +94,9 @@ object LoginUtils {
         id = userInfo.id
         name = userInfo.name
         portraitUrl = userInfo.avatar
+        phoneNum = userInfo.phone
+        sex = userInfo.gender
+        email=userInfo.email
     }
 
     fun relogin(context: Context) {

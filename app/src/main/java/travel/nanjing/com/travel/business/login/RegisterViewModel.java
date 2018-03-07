@@ -22,7 +22,6 @@ import com.zhexinit.ov.common.bean.RequestBean;
 
 import io.reactivex.functions.Consumer;
 import travel.nanjing.com.travel.R;
-import travel.nanjing.com.travel.business.MainActivity;
 import travel.nanjing.com.travel.business.api.model.bo.BaseUserBo;
 import travel.nanjing.com.travel.business.api.service.UserService;
 
@@ -96,13 +95,13 @@ public class RegisterViewModel extends BaseViewModel<RegisterActivity> {
         RxUtil.wrapRestCall(service.register(requestBean), requestBean.getReqId()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
-                getView().startActivity(new Intent(getView(), MainActivity.class));
+                getView().startActivity(new Intent(getView(), LoginActivity.class));
             }
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
                 if (throwable instanceof SuccessException) {
-                    getView().startActivity(new Intent(getView(), MainActivity.class));
+                    getView().startActivity(new Intent(getView(), LoginActivity.class));
                 } else {
                     Log.i(TAG, throwable.getMessage());
                 }

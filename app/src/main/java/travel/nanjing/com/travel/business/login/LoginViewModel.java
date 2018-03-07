@@ -20,6 +20,8 @@ import travel.nanjing.com.travel.business.MainActivity;
 import travel.nanjing.com.travel.business.api.model.bo.LoginBean;
 import travel.nanjing.com.travel.business.api.model.bo.UserBo;
 import travel.nanjing.com.travel.business.api.service.UserService;
+import travel.nanjing.com.travel.business.own.SettingUserInfoActivity;
+import travel.nanjing.com.travel.util.RxUtils;
 
 /**
  * Created by zx on 2018/2/22 0022.
@@ -60,16 +62,15 @@ public class LoginViewModel extends BaseViewModel<LoginActivity> {
                 .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(Object o) throws Exception {
-//                        getUserInfo();
-                        getView().startActivity(new Intent(getView(), MainActivity.class));
+                        getUserInfo();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         if (throwable instanceof SuccessException) {
-//                            getUserInfo();
-                            getView().startActivity(new Intent(getView(), MainActivity.class));
+                            getUserInfo();
                         } else {
+                            Toast.makeText(getView(), throwable.getMessage(), Toast.LENGTH_LONG).show();
                             Log.e(TAG, "accept: request" + throwable.getMessage());
                         }
                     }
@@ -79,20 +80,25 @@ public class LoginViewModel extends BaseViewModel<LoginActivity> {
     private void getUserInfo() {
         RequestBean<Void> requestBean = RequestBeanMaker.getRequestBean();
 
-
-        RxUtil.wrapRestCall(RetrofitFactory.createRestService(UserService.class).getMyInfo(requestBean), requestBean.getReqId())
-                .subscribe(new Consumer<UserBo>() {
-                    @Override
-                    public void accept(UserBo o) throws Exception {
-                        LoginUtils.INSTANCE.saveUserInfo(o);
-                        getView().startActivity(new Intent(getView(), MainActivity.class));
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Log.e(TAG, "accept:getUserInfo " + throwable.getMessage());
-                    }
-                });
+        RxUtils.wrapRestCall(RetrofitFactory.createRestService(UserService.class).getMyInfo(requestBean)).subscribe(new Consumer<UserBo>() {
+            @Override
+            public void accept(UserBo o) throws Exception {
+                if (TextUtils.isEmpty(o.getAvatar())) {
+                    LoginUtils.INSTANCE.saveUserInfo(o);
+                    getView().startActivity(new Intent(getView(), SettingUserInfoActivity.class));
+                    getView().finish();
+                } else {
+                    LoginUtils.INSTANCE.saveUserInfo(o);
+                    getView().startActivity(new Intent(getView(), MainActivity.class));
+                    getView().finish();
+                }
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                Log.e(TAG, "accept:getUserInfo " + throwable.getMessage());
+            }
+        });
     }
 
     private static final String TAG = "LoginViewModel";

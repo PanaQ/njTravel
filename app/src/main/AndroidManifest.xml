@@ -50,7 +50,7 @@
         <activity android:name=".business.together.TogetherDetailActivity" />
         <activity
             android:name=".business.login.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
         <activity android:name=".business.login.RegisterActivity" />
         <activity android:name=".business.funs.FriendsActivity" />
         <activity android:name=".business.friends.UserInfoActivity" />
@@ -62,7 +62,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".business.myrecord.DealMyTogetherActivity"></activity>
+        <activity android:name=".business.myrecord.DealMyTogetherActivity" />
+        <activity android:name=".business.own.SettingUserInfoActivity"></activity>
     </application>
 
 </manifest>

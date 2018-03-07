@@ -7,6 +7,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -23,7 +24,11 @@ public interface NoteService {
 
     @Multipart
     @POST("/note/uploadPicture")
-    Observable<ResponseBean<String>> uploadPicture(@Part("picture") MultipartBody.Part file);
+    Observable<ResponseBean<String>> uploadPicture(@Part("picture") RequestBody file);
+
+    @Multipart
+    @POST("/note/uploadPicture")
+    Observable<ResponseBean<String>> uploadPicture(@Part MultipartBody.Part file, @Part("picture") RequestBody description);
 
     @Multipart
     @POST("/note/uploadVideo")

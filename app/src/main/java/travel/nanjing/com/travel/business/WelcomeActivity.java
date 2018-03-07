@@ -8,6 +8,7 @@ import com.handarui.iqfun.util.LoginUtils;
 
 import travel.nanjing.com.travel.R;
 import travel.nanjing.com.travel.business.login.LoginActivity;
+import travel.nanjing.com.travel.business.own.SettingUserInfoActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
 

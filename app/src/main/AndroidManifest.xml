@@ -33,7 +33,12 @@
         <activity
             android:name=".business.MainActivity"
             android:label="@string/app_name" />
-        <activity android:name=".business.travelRecord.addRecord.AddRecordActivity" />
+        <activity android:name=".business.travelRecord.addRecord.AddRecordActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".business.together.addTogether.AddTogetherActivity" />
         <activity android:name=".business.travelRecord.RecordDetailActivity" />
 
@@ -56,11 +61,10 @@
         <activity android:name=".business.friends.UserInfoActivity" />
         <activity android:name=".business.myrecord.DealMyRecordActivity" />
         <activity android:name=".business.WelcomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".business.myrecord.DealMyTogetherActivity" />
         <activity android:name=".business.own.SettingUserInfoActivity"></activity>

@@ -122,6 +122,13 @@
                     android:layout_marginTop="10dp"
                     android:text="添加图片信息(最多三张)" />
 
+                <ImageView
+                    android:id="@+id/video"
+                    android:src="@mipmap/icon_add"
+                    android:layout_margin="16dp"
+                    android:layout_below="@+id/imageView1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp" />
             </RelativeLayout>
         </ScrollView>
 

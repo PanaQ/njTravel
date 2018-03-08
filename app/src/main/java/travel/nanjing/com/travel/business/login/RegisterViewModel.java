@@ -5,16 +5,25 @@ import android.databinding.ObservableField;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.Spannable;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.handarui.baselib.exception.SuccessException;
+import com.handarui.baselib.net.RetrofitFactory;
+import com.handarui.baselib.util.RequestBeanMaker;
+import com.handarui.baselib.util.RxUtil;
 import com.handarui.iqfun.business.base.BaseViewModel;
+import com.zhexinit.ov.common.bean.RequestBean;
 
+import io.reactivex.functions.Consumer;
 import travel.nanjing.com.travel.R;
-import travel.nanjing.com.travel.business.MainActivity;
+import travel.nanjing.com.travel.business.api.model.bo.BaseUserBo;
+import travel.nanjing.com.travel.business.api.service.UserService;
 
 /**
  * Created by zx on 2018/2/22 0022.
@@ -40,8 +49,8 @@ public class RegisterViewModel extends BaseViewModel<RegisterActivity> {
     }
 
     public void commit(View view) {
-        if (sameState.get()) {
-            this.getView().startActivity(new Intent(this.getView(), MainActivity.class));
+        if (sameState.get() && !TextUtils.isEmpty(phoneNum.get()) && !TextUtils.isEmpty(passWord.get())) {
+            requestRegiste();
         }
     }
 
@@ -73,16 +82,32 @@ public class RegisterViewModel extends BaseViewModel<RegisterActivity> {
     }
 
     void requestRegiste() {
-//        RxUtil.wrapRestCall().subscribe(new Consumer<Object>() {
-//            @Override
-//            public void accept(Object o) throws Exception {
-//                this.getView().startActivity(new Intent(this.getView(), MainActivity.class));
-//            }
-//        }, new Consumer<Throwable>() {
-//            @Override
-//            public void accept(Throwable throwable) throws Exception {
-//
-//            }
-//        });
+        RequestBean<BaseUserBo> requestBean = RequestBeanMaker.getRequestBean();
+
+        BaseUserBo param = new BaseUserBo();
+        param.setName(phoneNum.get());
+        param.setPhone(phoneNum.get());
+        param.setPassword(passWord.get());
+        requestBean.setParam(param);
+
+
+        UserService service = RetrofitFactory.createRestService(UserService.class);
+        RxUtil.wrapRestCall(service.register(requestBean), requestBean.getReqId()).subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) throws Exception {
+                getView().startActivity(new Intent(getView(), LoginActivity.class));
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                if (throwable instanceof SuccessException) {
+                    getView().startActivity(new Intent(getView(), LoginActivity.class));
+                } else {
+                    Log.i(TAG, throwable.getMessage());
+                }
+            }
+        });
     }
+
+    private static final String TAG = "RegisterViewModel";
 }

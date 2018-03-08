@@ -1,6 +1,5 @@
 package travel.nanjing.com.travel.business.travelRecord.addRecord
 
-import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
@@ -13,10 +12,8 @@ import android.support.v4.content.FileProvider
 import android.util.Log
 import com.handarui.iqfun.business.base.BaseVMActivity
 import com.squareup.picasso.Picasso
-import com.tbruyelle.rxpermissions.RxPermissions
 import me.nereo.multi_image_selector.MultiImageSelector
 import me.nereo.multi_image_selector.MultiImageSelectorActivity
-import rx.functions.Action1
 import travel.nanjing.com.travel.R
 import travel.nanjing.com.travel.databinding.ActivityAddRecordBinding
 import travel.nanjing.com.travel.util.BitmapUtils
@@ -37,7 +34,7 @@ class AddRecordActivity : BaseVMActivity<AddRecordActivity, AddRecordViewModel>(
         viewModel = AddRecordViewModel(this)
     }
 
-    lateinit var binding: ActivityAddRecordBinding
+    protected  lateinit var binding: ActivityAddRecordBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView<ActivityAddRecordBinding>(this, R.layout.activity_add_record)
@@ -89,7 +86,7 @@ class AddRecordActivity : BaseVMActivity<AddRecordActivity, AddRecordViewModel>(
      * 选择相册
      */
     public fun showImageSelector() {
-        MultiImageSelector.create(this)
+        MultiImageSelector.create()
                 .showCamera(false) // 是否显示相机. 默认为显示
                 .count(1) // 最大选择图片数量, 默认为9. 只有在选择模式为多选时有效
                 .single() // 单选模式
@@ -98,16 +95,7 @@ class AddRecordActivity : BaseVMActivity<AddRecordActivity, AddRecordViewModel>(
 
 
     public fun startPicture() {
-        val rxPermissions = RxPermissions(this)
-        rxPermissions
-                .request(Manifest.permission.READ_EXTERNAL_STORAGE)
-                .subscribe(Action1<Boolean> { aBoolean ->
-                    if (aBoolean!!) {
-                        showImageSelector()
-                    } else {
-
-                    }
-                })
+        showImageSelector()
     }
 
     /**

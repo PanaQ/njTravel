@@ -13,6 +13,7 @@ import travel.nanjing.com.travel.business.travelRecord.addRecord.AddRecordActivi
 
 public class TravelRecordViewModel extends BaseViewModel<TravelRecordFragment> {
 
+    private static final String TAG = "TravelRecordViewModel";
 
     public TravelRecordViewModel(TravelRecordFragment view) {
         super(view);

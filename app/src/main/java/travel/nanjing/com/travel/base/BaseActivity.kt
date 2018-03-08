@@ -3,16 +3,16 @@ package com.handarui.iqfun.business.base
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.handarui.iqfun.util.AppManager
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import travel.nanjing.com.travel.R
 import travel.nanjing.com.travel.util.CommonUtil
 
 /**
  * Created by xubo on 2018/1/18.
  */
-abstract class BaseActivity : RxAppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

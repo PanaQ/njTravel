@@ -39,4 +39,13 @@
     <string name="samePwd">两次输入密码相同</string>
     <string name="emptyPwd">请输入密码</string>
     <string name="phoneTypeError">手机号输入有误，请重新输入!</string>
+
+    <string-array name="avaPic">
+        <item>https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4165085906,3853916729&amp;fm=27&amp;gp=0.jpg</item>
+        <item>https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3298893450,4239941525&amp;fm=27&amp;gp=0.jpg</item>
+        <item>https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4290525958,2518946729&amp;fm=27&amp;gp=0.jpg</item>
+        <item>https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=446780374,4034331208&amp;fm=27&amp;gp=0.jpg</item>
+        <item>https://ss0.baidu.com/73t1bjeh1BF3odCf/it/u=2909600219,3777135981&amp;fm=85&amp;s=9BBB60845C028651167201100300A0CB</item>
+        <item>https://ss0.baidu.com/73t1bjeh1BF3odCf/it/u=2288750558,2285435081&amp;fm=85&amp;s=C6A2BA428A9321E515C41432010050C2</item>
+    </string-array>
 </resources>

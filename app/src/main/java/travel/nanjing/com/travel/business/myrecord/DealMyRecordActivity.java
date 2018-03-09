@@ -18,7 +18,6 @@ import com.handarui.baselib.net.RetrofitFactory;
 import com.handarui.baselib.util.RequestBeanMaker;
 import com.handarui.baselib.util.RxUtil;
 import com.handarui.iqfun.util.LoginUtils;
-import com.squareup.picasso.Picasso;
 import com.yanzhenjie.recyclerview.swipe.Closeable;
 import com.yanzhenjie.recyclerview.swipe.OnSwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
@@ -158,7 +157,7 @@ class MenuAdapter extends SwipeMenuAdapter<MenuAdapter.DefaultViewHolder> {
     public void onBindViewHolder(DefaultViewHolder holder, int position) {
         holder.content.setText(data.get(position).getContent());
         holder.title.setText(data.get(position).getTitle());
-        Picasso.with(context).load(LoginUtils.INSTANCE.getAva()).into(holder.imageView);
+//        Picasso.with(context).load(LoginUtils.INSTANCE.getAva()).into(holder.imageView);
     }
 
     public void setData(List<BaseNoteBo> data) {

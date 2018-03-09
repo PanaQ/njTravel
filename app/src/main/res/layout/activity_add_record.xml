@@ -96,8 +96,8 @@
                     android:layout_below="@+id/content"
                     android:layout_marginStart="29dp"
                     android:layout_marginTop="54dp"
-                    android:onClick="@{viewModel::addPicture}"
                     android:layout_toRightOf="@+id/imageView1"
+                    android:onClick="@{viewModel::addPicture}"
                     app:srcCompat="@mipmap/icon_add_pic" />
 
                 <ImageView
@@ -107,8 +107,8 @@
                     android:layout_below="@+id/content"
                     android:layout_marginStart="29dp"
                     android:layout_marginTop="54dp"
-                    android:onClick="@{viewModel::addPicture}"
                     android:layout_toRightOf="@+id/imageView2"
+                    android:onClick="@{viewModel::addPicture}"
                     app:srcCompat="@mipmap/icon_add_pic" />
 
 
@@ -122,13 +122,23 @@
                     android:layout_marginTop="10dp"
                     android:text="添加图片信息(最多三张)" />
 
-                <ImageView
-                    android:id="@+id/video"
-                    android:src="@mipmap/icon_add"
+                <FrameLayout
                     android:layout_margin="16dp"
-                    android:layout_below="@+id/imageView1"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imageView1">
+
+                    <VideoView
+                        android:id="@+id/videoView"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" />
+
+                    <ImageView
+                        android:id="@+id/video"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@mipmap/icon_add" />
+                </FrameLayout>
             </RelativeLayout>
         </ScrollView>
 

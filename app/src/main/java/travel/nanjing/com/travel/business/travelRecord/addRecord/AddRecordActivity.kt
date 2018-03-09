@@ -10,6 +10,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.util.Log
+import android.view.View
 import com.handarui.iqfun.business.base.BaseVMActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_add_record.*
@@ -137,7 +138,12 @@ class AddRecordActivity : BaseVMActivity<AddRecordActivity, AddRecordViewModel>(
         }
         if (requestCode == PHOTO_CAMERA) {
             var uri = data?.data
-            var path: String = UriUtils.getPath(this, uri)
+            videoPath = UriUtils.getPath(this, uri)
+            video.visibility = View.INVISIBLE
+            videoView.setVideoURI(uri)
+            videoView.start()
         }
     }
+
+    var videoPath: String = ""
 }

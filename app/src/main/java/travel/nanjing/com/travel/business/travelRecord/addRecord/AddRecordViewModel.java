@@ -1,5 +1,6 @@
 package travel.nanjing.com.travel.business.travelRecord.addRecord;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -52,9 +53,12 @@ public class AddRecordViewModel extends BaseViewModel<AddRecordActivity> {
         param.setTitle(this.getView().binding.title.getText().toString());
         String content = this.getView().binding.content.getText().toString();
         for (String string : strings) {
-            content+="abcd"+string;
+            content += "abcd" + string;
         }
         String[] https = content.split("abcd");
+        for (String http : https) {
+            Log.i(TAG, "addRecord: " + http);
+        }
         param.setContent(content);
         requestBean.setParam(param);
         NoteService restService = RetrofitFactory.createRestService(NoteService.class);
@@ -94,8 +98,12 @@ public class AddRecordViewModel extends BaseViewModel<AddRecordActivity> {
                     @Override
                     public void accept(String s) throws Exception {
                         picAddress.add(s);
-                        if (picAddress.size()==getView().getFiles().size()){
-                            addRecord(picAddress);
+                        if (picAddress.size() == getView().getFiles().size()) {
+                            if (TextUtils.isEmpty(getView().getVideoPath())) {
+                                addRecord(picAddress);
+                            } else {
+                                requestVideo(new File(getView().getVideoPath()));
+                            }
                         }
                     }
                 }, new Consumer<Throwable>() {
@@ -106,6 +114,33 @@ public class AddRecordViewModel extends BaseViewModel<AddRecordActivity> {
                     }
                 });
 
+    }
+
+    public void requestVideo(File fileName) {
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileName);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("video", fileName.getName(), requestFile);
+
+        String descriptionString = "video";
+
+        RequestBody description = RequestBody.create(MediaType.parse("multipart/form-data"), descriptionString);
+
+        RxUtils.wrapRestCall(RetrofitFactory.createRestService(NoteService.class)
+                .uploadVideo(body, description))
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        Log.i(TAG, "accept: " + s);
+                        picAddress.add(s);
+                        addRecord(picAddress);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Toast.makeText(getView(), throwable.getMessage(), Toast.LENGTH_LONG).show();
+                        Log.e(TAG, "accept: " + throwable.getMessage());
+                    }
+                });
     }
 
     public void addPicture(View view) {

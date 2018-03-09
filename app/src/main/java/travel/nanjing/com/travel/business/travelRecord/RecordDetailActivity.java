@@ -44,6 +44,7 @@ public class RecordDetailActivity extends AppCompatActivity {
     private boolean isFollow;
     long userId;
     private long recordId;
+    private String recordContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +80,18 @@ public class RecordDetailActivity extends AppCompatActivity {
 
         recordId = getIntent().getLongExtra("recordId", -1L);
         userId = getIntent().getLongExtra("userId", -1L);
+        recordContent = getIntent().getStringExtra("recordContent");
+
         if (recordId != -1L) {
             getContentById(recordId);
         }
         if (userId != -1L) {
             getIsFollow();
         }
+
+        RecordDetailAdapter adapter = new RecordDetailAdapter(this);
+        contentRv.setAdapter(adapter);
+        adapter.setData(recordContent);
 
         sendNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,7 +165,7 @@ public class RecordDetailActivity extends AppCompatActivity {
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
-                if (throwable instanceof SuccessException){
+                if (throwable instanceof SuccessException) {
                     isFollow = false;
                     dealFollow(isFollow);
                     Toast.makeText(RecordDetailActivity.this, "取消关注成功", Toast.LENGTH_LONG).show();

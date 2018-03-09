@@ -10,41 +10,57 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.util.Log
+import android.view.View
 import com.handarui.iqfun.business.base.BaseVMActivity
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_add_record.*
 import me.nereo.multi_image_selector.MultiImageSelector
 import me.nereo.multi_image_selector.MultiImageSelectorActivity
 import travel.nanjing.com.travel.R
 import travel.nanjing.com.travel.databinding.ActivityAddRecordBinding
 import travel.nanjing.com.travel.util.BitmapUtils
 import travel.nanjing.com.travel.util.ProviderUtil
+import travel.nanjing.com.travel.util.UriUtils
 import travel.nanjing.com.travel.util.Utils
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
+
 
 class AddRecordActivity : BaseVMActivity<AddRecordActivity, AddRecordViewModel>() {
 
     val PICTURE_IMAGE = 1
     val Take_Photo = 2
+    val PHOTO_CAMERA = 3
+
     private val TAG = "AddRecordActivity"
     internal var takeImageFile: File? = null
+    var files: ArrayList<File> = ArrayList()
 
     override fun initViewModel() {
         viewModel = AddRecordViewModel(this)
     }
 
-    protected  lateinit var binding: ActivityAddRecordBinding
+    protected lateinit var binding: ActivityAddRecordBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView<ActivityAddRecordBinding>(this, R.layout.activity_add_record)
         binding.viewModel = this.viewModel
+        video.setOnClickListener({
+            val intent = Intent()
+            intent.type = "video/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            startActivityForResult(intent,
+                    PHOTO_CAMERA)
+        })
     }
 
     /**
      * 调用相机拍照
      */
-    public fun startActionCamera() {
+    fun startActionCamera() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         takePictureIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         if (takePictureIntent.resolveActivity(packageManager) != null) {
@@ -85,7 +101,7 @@ class AddRecordActivity : BaseVMActivity<AddRecordActivity, AddRecordViewModel>(
     /**
      * 选择相册
      */
-    public fun showImageSelector() {
+    fun showImageSelector() {
         MultiImageSelector.create()
                 .showCamera(false) // 是否显示相机. 默认为显示
                 .count(1) // 最大选择图片数量, 默认为9. 只有在选择模式为多选时有效
@@ -94,7 +110,7 @@ class AddRecordActivity : BaseVMActivity<AddRecordActivity, AddRecordViewModel>(
     }
 
 
-    public fun startPicture() {
+    fun startPicture() {
         showImageSelector()
     }
 
@@ -117,16 +133,17 @@ class AddRecordActivity : BaseVMActivity<AddRecordActivity, AddRecordViewModel>(
                 Log.d(TAG, "picture  path =" + path!![0])
                 val newPath = BitmapUtils.compress(this, path[0])
                 Picasso.with(this).load(newPath).resize(144, 144).into(this.viewModel.clickView)
-//                myAvaIv.setImageURI(Uri.parse("file://" + newPath.absolutePath))
+                files.add(newPath)
             }
         }
-//        if (requestCode == Take_Photo) {
-//            if (resultCode == RESULT_OK) {
-//                val newPath = BitmapUtils.compress(this, takeImageFile?.absolutePath)
-//                Log.d(TAG, "picture  path =" + newPath)
-//                Picasso.with(this).load(newPath).into(this.viewModel.clickView)
-////                myAvaIv.setImageURI(Uri.parse("file://" + newPath.absolutePath))
-//            }
-//        }
+        if (requestCode == PHOTO_CAMERA) {
+            var uri = data?.data
+            videoPath = UriUtils.getPath(this, uri)
+            video.visibility = View.INVISIBLE
+            videoView.setVideoURI(uri)
+            videoView.start()
+        }
     }
+
+    var videoPath: String = ""
 }

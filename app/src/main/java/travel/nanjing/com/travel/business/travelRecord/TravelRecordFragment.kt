@@ -52,6 +52,7 @@ class TravelRecordFragment : BaseVMFragment<TravelRecordFragment, TravelRecordVi
             var intent = Intent(context, RecordDetailActivity::class.java)
             intent.putExtra("userId", adapter.data[it].userId)
             intent.putExtra("recordId", adapter.data[it].id)
+            intent.putExtra("recordContent", adapter.data[it].content)
             startActivity(intent)
         }
         dataBinding.recordRv.adapter = adapter

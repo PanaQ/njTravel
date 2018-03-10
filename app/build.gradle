@@ -69,6 +69,7 @@ dependencies {
         exclude group: 'org.springframework.data'
         changing = true
     }
+    compile 'com.contrarywind:Android-PickerView:3.2.7'
 }
 kapt {
     generateStubs = true

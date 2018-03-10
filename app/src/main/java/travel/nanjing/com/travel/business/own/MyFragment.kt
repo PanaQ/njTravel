@@ -10,12 +10,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.handarui.baselib.net.TokenManager
 import com.handarui.iqfun.util.LoginUtils
-import com.squareup.picasso.Picasso
 import travel.nanjing.com.travel.R
 import travel.nanjing.com.travel.business.funs.FriendsActivity
 import travel.nanjing.com.travel.business.login.LoginActivity
 import travel.nanjing.com.travel.business.myrecord.DealMyRecordActivity
 import travel.nanjing.com.travel.business.myrecord.DealMyTogetherActivity
+import travel.nanjing.com.travel.business.travel.TravelActivity
 
 /**
  */
@@ -28,12 +28,15 @@ class MyFragment : Fragment() {
         var ava = view.findViewById<ImageView>(R.id.imageView4)
         var name = view.findViewById<TextView>(R.id.name)
         name.text = LoginUtils.name
-        Picasso.with(context).load(LoginUtils.portraitUrl).into(ava)
-
+//        Picasso.with(context).load(LoginUtils.portraitUrl).into(ava)
 
         view.findViewById<TextView>(R.id.attation).setOnClickListener({
             var intent = Intent(context, FriendsActivity::class.java)
             intent.putExtra("type", "attention")
+            startActivity(intent)
+        })
+        view.findViewById<TextView>(R.id.my_feedback).setOnClickListener({
+            var intent = Intent(context, TravelActivity::class.java)
             startActivity(intent)
         })
         view.findViewById<TextView>(R.id.funs).setOnClickListener({

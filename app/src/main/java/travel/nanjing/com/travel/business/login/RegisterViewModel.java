@@ -96,12 +96,14 @@ public class RegisterViewModel extends BaseViewModel<RegisterActivity> {
             @Override
             public void accept(Object o) throws Exception {
                 getView().startActivity(new Intent(getView(), LoginActivity.class));
+                getView().finish();
             }
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
                 if (throwable instanceof SuccessException) {
                     getView().startActivity(new Intent(getView(), LoginActivity.class));
+                    getView().finish();
                 } else {
                     Log.i(TAG, throwable.getMessage());
                 }

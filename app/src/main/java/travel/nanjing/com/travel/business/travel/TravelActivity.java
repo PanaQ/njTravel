@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -18,8 +19,10 @@ import java.util.List;
 
 import io.reactivex.functions.Consumer;
 import travel.nanjing.com.travel.R;
+import travel.nanjing.com.travel.business.api.helper.TrainQuery;
 import travel.nanjing.com.travel.business.api.model.bo.DivisionBo;
 import travel.nanjing.com.travel.business.api.model.bo.ScenicSpotBo;
+import travel.nanjing.com.travel.business.api.model.bo.TrainBo;
 import travel.nanjing.com.travel.business.api.service.DevisionService;
 import travel.nanjing.com.travel.business.api.service.ScenicSpotService;
 import travel.nanjing.com.travel.databinding.ActivityTravelBinding;
@@ -29,6 +32,8 @@ public class TravelActivity extends AppCompatActivity {
 
     private ActivityTravelBinding dataBinding;
     private OptionsPickerView pickerView;
+    private TravelPlaceAdapter travelPlaceAdapter;
+    private TravelTypeAdapter typeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,14 @@ public class TravelActivity extends AppCompatActivity {
                 getByDivisionId(endInfo.getId());
             }
         });
+        LinearLayoutManager layout = new LinearLayoutManager(this);
+        dataBinding.jingdian.setLayoutManager(layout);
+        travelPlaceAdapter = new TravelPlaceAdapter(this);
+        dataBinding.jingdian.setAdapter(travelPlaceAdapter);
+
+        dataBinding.goType.setLayoutManager(new LinearLayoutManager(this));
+        typeAdapter = new TravelTypeAdapter(this);
+        dataBinding.goType.setAdapter(typeAdapter);
     }
 
     List<String> province = new ArrayList<>();
@@ -171,7 +184,27 @@ public class TravelActivity extends AppCompatActivity {
     }
 
     public void getByDivisionId(Long id) {
+
         ScenicSpotService restService = RetrofitFactory.createRestService(ScenicSpotService.class);
+        RequestBean<TrainQuery> trainQueryRequestBean = RequestBeanMaker.getRequestBean();
+        TrainQuery param = new TrainQuery();
+        param.setStartStation(startInfo.getName().substring(0,startInfo.getName().indexOf("市")));
+        param.setEndStation(endInfo.getName().substring(0,endInfo.getName().indexOf("市")));
+        trainQueryRequestBean.setParam(param);
+        RxUtils.wrapRestCall(restService.queryTrain(trainQueryRequestBean)).subscribe(new Consumer<List<TrainBo>>() {
+            @Override
+            public void accept(List<TrainBo> trainBos) throws Exception {
+                typeAdapter.setData(trainBos);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                Log.i(TAG, "accept: " + throwable.getMessage());
+                Toast.makeText(TravelActivity.this, throwable.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         RequestBean<Long> requestBean = RequestBeanMaker.getRequestBean();
         RxUtils.wrapRestCall(restService.getByDivisionId(requestBean)).subscribe(new Consumer<List<ScenicSpotBo>>() {
             @Override
@@ -206,6 +239,8 @@ public class TravelActivity extends AppCompatActivity {
             @Override
             public void accept(List<ScenicSpotBo> scenicSpotBos) throws Exception {
                 Log.i(TAG, "accept: " + scenicSpotBos);
+
+                travelPlaceAdapter.setData(scenicSpotBos);
             }
         }, new Consumer<Throwable>() {
             @Override

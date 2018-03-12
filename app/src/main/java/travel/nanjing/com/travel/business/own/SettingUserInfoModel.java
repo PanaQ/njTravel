@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.handarui.baselib.exception.SuccessException;
 import com.handarui.baselib.net.RetrofitFactory;
 import com.handarui.baselib.util.RequestBeanMaker;
+import com.handarui.baselib.util.RxUtil;
 import com.handarui.iqfun.business.base.BaseViewModel;
 import com.handarui.iqfun.util.LoginUtils;
 import com.squareup.picasso.Picasso;
@@ -81,17 +82,18 @@ public class SettingUserInfoModel extends BaseViewModel<SettingUserInfoActivity>
     public void requestUpdateUserInfo(String s) {
         RequestBean<UserBo> requestBean = RequestBeanMaker.getRequestBean();
         final UserBo param = new UserBo();
+        param.setName(LoginUtils.INSTANCE.getName());
         param.setPhone(useCount.get());
         param.setEmail(userName.get());
         param.setId(LoginUtils.INSTANCE.getId());
         param.setAvatar(s);
         requestBean.setParam(param);
 
-        RxUtils.wrapRestCall(RetrofitFactory.createRestService(UserService.class).updateMyInfo(requestBean))
-                .subscribe(new Consumer<UserBo>() {
+        RxUtil.wrapRestCall(RetrofitFactory.createRestService(UserService.class).updateMyInfo(requestBean),requestBean.getReqId())
+                .subscribe(new Consumer<Void>() {
                     @Override
-                    public void accept(UserBo o) throws Exception {
-                        LoginUtils.INSTANCE.saveUserInfo(o);
+                    public void accept(Void o) throws Exception {
+                        LoginUtils.INSTANCE.saveUserInfo(param);
                         getView().startActivity(new Intent(getView(), MainActivity.class));
                         getView().finish();
                     }

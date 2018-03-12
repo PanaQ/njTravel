@@ -36,7 +36,7 @@ public interface MateNoteService {
     /**
      * 获取自己的所有结伴游列表
      */
-    @POST("/mateNote/getNoteListByMine")
+    @POST("/mateNote/getMateNoteListByMine")
     Observable<ResponseBean<List<MateNoteBo>>> getMateNoteListByMine();
 
     /**

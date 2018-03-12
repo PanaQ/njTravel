@@ -3,11 +3,13 @@ package com.handarui.iqfun.util
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
+import android.util.Log
 import com.handarui.baselib.net.TokenManager
 import travel.nanjing.com.travel.MyApplication
 import travel.nanjing.com.travel.R
 import travel.nanjing.com.travel.business.api.model.bo.UserBo
 import travel.nanjing.com.travel.business.login.LoginActivity
+import travel.nanjing.com.travel.util.Constant
 import travel.nanjing.com.travel.util.SPUtils
 
 /**
@@ -93,10 +95,12 @@ object LoginUtils {
     public fun saveUserInfo(userInfo: UserBo) {
         id = userInfo.id
         name = userInfo.name
-        portraitUrl = userInfo.avatar
+        val replace = userInfo.avatar.replace("http://localhost:8080", Constant.SERVER_ADDRESS)
+        Log.i("asasa",replace);
+        portraitUrl = replace
         phoneNum = userInfo.phone
         sex = userInfo.gender
-        email=userInfo.email
+        email = userInfo.email
     }
 
     fun relogin(context: Context) {

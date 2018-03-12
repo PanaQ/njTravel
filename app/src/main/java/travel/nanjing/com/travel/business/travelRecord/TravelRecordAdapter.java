@@ -43,7 +43,6 @@ public class TravelRecordAdapter extends RecyclerView.Adapter<TravelRecordAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View root = DataBindingUtil.inflate(inflater, R.layout.item_travel_record, parent, false).getRoot();
-
         return new ViewHolder(root);
     }
 

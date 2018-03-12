@@ -9,7 +9,9 @@ import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 import travel.nanjing.com.travel.business.api.helper.HTTPS;
+import travel.nanjing.com.travel.business.api.helper.TrainQuery;
 import travel.nanjing.com.travel.business.api.model.bo.ScenicSpotBo;
+import travel.nanjing.com.travel.business.api.model.bo.TrainBo;
 
 @HTTPS
 public interface ScenicSpotService {
@@ -22,4 +24,7 @@ public interface ScenicSpotService {
 
     @POST("/scenicSpot/sortByLevel")
     Observable<ResponseBean<List<ScenicSpotBo>>> sortByLevel(@Body RequestBean<List<Long>> requestBean);
+
+    @POST("/scenicSpot/queryTrain")
+    Observable<ResponseBean<List<TrainBo>>> queryTrain(@Body RequestBean<TrainQuery> requestBean);
 }

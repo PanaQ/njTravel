@@ -53,7 +53,7 @@ public interface UserService {
      * @return
      */
     @POST("/user/updateMyInfo")
-    Observable<ResponseBean<UserBo>> updateMyInfo(@Body RequestBean<UserBo> requestBean);
+    Observable<ResponseBean<Void>> updateMyInfo(@Body RequestBean<UserBo> requestBean);
 
 
 }

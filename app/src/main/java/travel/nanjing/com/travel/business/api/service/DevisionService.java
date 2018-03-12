@@ -15,14 +15,15 @@ public interface DevisionService {
 
     /**
      * 查询省份列表
-     * @param param
+     *
      * @return
      */
     @GET("/division/selectProvinces")
-    Observable<ResponseBean<List<DivisionBo>>> selectProvinces(@Body RequestBean<Void> param);
+    Observable<ResponseBean<List<DivisionBo>>> selectProvinces();
 
     /**
      * 查询省市区
+     *
      * @param parentCode
      * @return
      */
@@ -31,6 +32,7 @@ public interface DevisionService {
 
     /**
      * 查询
+     *
      * @param code
      * @return
      */

@@ -87,6 +87,7 @@ public class SettingUserInfoModel extends BaseViewModel<SettingUserInfoActivity>
         param.setEmail(userName.get());
         param.setId(LoginUtils.INSTANCE.getId());
         param.setAvatar(s);
+        param.setGender(1);
         requestBean.setParam(param);
 
         RxUtil.wrapRestCall(RetrofitFactory.createRestService(UserService.class).updateMyInfo(requestBean),requestBean.getReqId())

@@ -34,6 +34,10 @@ class MyFragment : Fragment() {
             Picasso.with(context).load(LoginUtils.portraitUrl).into(ava)
         }
 
+        ava.setOnClickListener({
+            var intent = Intent(context, SettingUserInfoActivity::class.java)
+            startActivity(intent)
+        })
         view.findViewById<TextView>(R.id.attation).setOnClickListener({
             var intent = Intent(context, FriendsActivity::class.java)
             intent.putExtra("type", "attention")

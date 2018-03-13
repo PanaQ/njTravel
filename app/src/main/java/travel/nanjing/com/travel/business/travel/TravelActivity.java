@@ -55,7 +55,9 @@ public class TravelActivity extends AppCompatActivity {
         dataBinding.search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getByDivisionId(endInfo.getId());
+                if (startInfo != null && startInfo.getName() != null && endInfo != null) {
+                    getByDivisionId(endInfo.getId());
+                }
             }
         });
         LinearLayoutManager layout = new LinearLayoutManager(this);
@@ -188,8 +190,8 @@ public class TravelActivity extends AppCompatActivity {
         ScenicSpotService restService = RetrofitFactory.createRestService(ScenicSpotService.class);
         RequestBean<TrainQuery> trainQueryRequestBean = RequestBeanMaker.getRequestBean();
         TrainQuery param = new TrainQuery();
-        param.setStartStation(startInfo.getName().substring(0,startInfo.getName().indexOf("市")));
-        param.setEndStation(endInfo.getName().substring(0,endInfo.getName().indexOf("市")));
+        param.setStartStation(startInfo.getName().substring(0, startInfo.getName().indexOf("市")));
+        param.setEndStation(endInfo.getName().substring(0, endInfo.getName().indexOf("市")));
         trainQueryRequestBean.setParam(param);
         RxUtils.wrapRestCall(restService.queryTrain(trainQueryRequestBean)).subscribe(new Consumer<List<TrainBo>>() {
             @Override

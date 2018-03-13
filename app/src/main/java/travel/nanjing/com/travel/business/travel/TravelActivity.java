@@ -55,7 +55,7 @@ public class TravelActivity extends AppCompatActivity {
         dataBinding.search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (startInfo != null && endInfo != null) {
+                if (startInfo != null && startInfo.getName() != null && endInfo != null) {
                     getByDivisionId(endInfo.getId());
                 }
             }

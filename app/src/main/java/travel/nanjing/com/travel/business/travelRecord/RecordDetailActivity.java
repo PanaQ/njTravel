@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.handarui.baselib.exception.SuccessException;
@@ -41,6 +42,7 @@ public class RecordDetailActivity extends AppCompatActivity {
     private ImageView attention;
     private Button sendNote;
     private EditText note;
+    private TextView title;
     private boolean isFollow;
     long userId;
     private long recordId;
@@ -59,6 +61,7 @@ public class RecordDetailActivity extends AppCompatActivity {
         attention = ((ImageView) findViewById(R.id.attention));
         sendNote = ((Button) findViewById(R.id.sendNote));
         note = ((EditText) findViewById(R.id.note));
+        title = ((EditText) findViewById(R.id.title));
 
 
         noteRv.setLayoutManager(new LinearLayoutManager(this));
@@ -81,6 +84,7 @@ public class RecordDetailActivity extends AppCompatActivity {
         recordId = getIntent().getLongExtra("recordId", -1L);
         userId = getIntent().getLongExtra("userId", -1L);
         recordContent = getIntent().getStringExtra("recordContent");
+        title.setText(getIntent().getStringExtra("title"));
 
         if (recordId != -1L) {
             getContentById(recordId);

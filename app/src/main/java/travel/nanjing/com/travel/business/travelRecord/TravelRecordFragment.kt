@@ -52,6 +52,8 @@ class TravelRecordFragment : BaseVMFragment<TravelRecordFragment, TravelRecordVi
             var intent = Intent(context, RecordDetailActivity::class.java)
             intent.putExtra("userId", adapter.data[it].userId)
             intent.putExtra("recordId", adapter.data[it].id)
+            intent.putExtra("title", adapter.data[it].title)
+            intent.putExtra("user", adapter.data[it].userId)
             intent.putExtra("recordContent", adapter.data[it].content)
             startActivity(intent)
         }
@@ -71,7 +73,7 @@ class TravelRecordFragment : BaseVMFragment<TravelRecordFragment, TravelRecordVi
 
     private fun getContentById(userId: Long) {
         var requestBean = RequestBeanMaker.getRequestBean<Long>()
-        requestBean.param=userId
+        requestBean.param = userId
 
 
         var service = RetrofitFactory.createRestService(NoteService::class.java)

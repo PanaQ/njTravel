@@ -61,7 +61,7 @@ public class RecordDetailActivity extends AppCompatActivity {
         attention = ((ImageView) findViewById(R.id.attention));
         sendNote = ((Button) findViewById(R.id.sendNote));
         note = ((EditText) findViewById(R.id.note));
-        title = ((EditText) findViewById(R.id.title));
+        title = ((TextView) findViewById(R.id.title));
 
 
         noteRv.setLayoutManager(new LinearLayoutManager(this));
